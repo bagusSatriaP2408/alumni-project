@@ -55,7 +55,7 @@ class PostController extends Controller
             ...['gambar' => $file->store('images/posts')]
         ]);
 
-        return to_route('posts.index');
+        return to_route('posts.user_posts');
     }
 
     /**
@@ -63,9 +63,15 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('posts.show', compact('post'));
     }
 
+    public function userPosts(Request $request)
+    {
+        $user = $request->user();
+        $posts = $user->posts()->latest()->get();
+        return view('posts.detail', compact('posts'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -92,7 +98,7 @@ class PostController extends Controller
     public function update(PostRequest $request, post $post)
     {
         if ($request->hasFile('gambar')) {
-            Storage::delete($post->logo);
+            Storage::delete($post->gambar);
             $file = $request->file('gambar');
         } else { 
             $file = $post->gambar;
@@ -101,7 +107,7 @@ class PostController extends Controller
         $post->update([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $file->post('images/posts'),
+            'gambar' => $file->store('images/posts'),
         ]);
 
         return to_route('posts.index');
@@ -111,7 +117,8 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)
-    {
-        //
+    {   
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus!');
     }
 }
