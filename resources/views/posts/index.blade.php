@@ -3,11 +3,11 @@
     {{-- <x-slot name="title">
         Dashboard
     </x-slot> --}}
-    @slot('title', 'Posts')
+    @slot('title', 'Postingan')
         
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Posts') }}
+            {{ __('Postingan') }}
         </h2>
     </x-slot>
 
@@ -25,6 +25,11 @@
                         @auth
                             @if ($post->user_id === auth()->user()->id)
                                 <a href="{{ route('posts.edit', $post) }}" class="underline text-blue-500">Edit</a>
+                                <form action="{{ route('posts.destroy', $post) }}" method="POST" class="mt-4">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="underline text-red-500">Hapus</button>
+                                </form>
                             @endif
                         @endauth
                     </x-card>

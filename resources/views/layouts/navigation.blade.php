@@ -38,8 +38,8 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('dashboard')">
-                                {{ __('Dashboard') }}
+                            <x-dropdown-link :href="route('posts.user_posts')">
+                                {{ __('Postingan Saya') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('posts.create')">
                                 {{ __('Buat Postingan Baru') }}
