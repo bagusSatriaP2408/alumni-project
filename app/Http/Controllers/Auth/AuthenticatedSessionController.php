@@ -31,7 +31,7 @@ public function store(Request $request): RedirectResponse
             // If authentication is successful for web-admin, store user data in session
             $request->session()->regenerate();
             $request->session()->put('email', auth()->guard('web-admin')->user()->email);
-            return redirect()->intended('sasasa');
+            return redirect()->route('admin.dashboard');
         } elseif (auth()->guard('web')->attempt($credentials)) {
             // If authentication is successful for web-lulusan, store user data in session
             $request->session()->regenerate();
