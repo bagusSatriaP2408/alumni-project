@@ -40,6 +40,15 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'web-admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+        // 'web-lulusan' => [
+        //     'driver' => 'session',
+        //     'provider' => 'lulusan',
+        // ],
+
     ],
 
     /*
@@ -59,11 +68,20 @@ return [
     |
     */
 
+
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+        'admin' =>[
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class
+        ],
+        // 'lulusan' =>[
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\Lulusan::class
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',
