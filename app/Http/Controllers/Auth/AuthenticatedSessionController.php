@@ -22,14 +22,27 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    
-    public function store(LoginRequest $request): RedirectResponse
+
+public function store(Request $request): RedirectResponse
     {
-        $request->authenticate();
+        $credentials = $request->only('email', 'password');
 
-        $request->session()->regenerate();
-
-        return redirect()->intended(route('dashboard', absolute: false));
+        if (auth()->guard('web-admin')->attempt($credentials)) {
+            // If authentication is successful for web-admin, store user data in session
+            $request->session()->regenerate();
+            $request->session()->put('email', auth()->guard('web-admin')->user()->email);
+            return redirect()->intended('sasasa');
+        } elseif (auth()->guard('web')->attempt($credentials)) {
+            // If authentication is successful for web-lulusan, store user data in session
+            $request->session()->regenerate();
+            $request->session()->put('email', $credentials['email']);
+            return redirect()->route('home');
+        } else {
+            // If authentication fails
+            return back()->withErrors([
+                'email' => 'Login Gagal'
+            ])->onlyInput('email');
+        }
     }
 
     /**
