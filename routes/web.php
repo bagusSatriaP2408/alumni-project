@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function () {
 Route::group(['prefix' => 'Admin'], function () {
     Route::get('/Dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/Lulusan', [AdminController::class, 'show'])->name('admin.lulusan');
+    Route::post('/Lulusan/setujui',[AdminController::class, 'setujui'])->name('admin.lulusan.setujui');
+    Route::post('/Lulusan/Tolak',[AdminController::class, 'tolak'])->name('admin.lulusan.tolak');
+    // Route::resource('kuisioner',[Kusi]);
 });
-
 require __DIR__.'/auth.php';
