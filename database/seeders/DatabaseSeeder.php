@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Kuisioner;
+use App\Models\MainKuisioner;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -36,5 +38,18 @@ class DatabaseSeeder extends Seeder
             "password"=>"a",
 
             ]);
+        MainKuisioner::create([
+            "subject"=>"Test"
+
+        ]);
+        Kuisioner::create([
+            "id_main_kuisioner"=>1,
+            "kuisioner"=>"k1"
+        ]);
+        Kuisioner::create([
+            "id_main_kuisioner"=>1,
+            "kuisioner"=>"k2"
+        ]);
     }
+
 }

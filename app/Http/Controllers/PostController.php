@@ -9,6 +9,7 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Contracts\View\View;
 
 class PostController extends Controller
 {
@@ -24,6 +25,11 @@ class PostController extends Controller
         return view('posts.index', [
             'posts' => $posts,
         ]);
+    }
+    public function show_admin(Request $request):View
+    {
+
+        return view('admin.postingan');
     }
         
         /**

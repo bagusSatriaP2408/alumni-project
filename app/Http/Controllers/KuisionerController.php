@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kuisioner;
+use App\Models\MainKuisioner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\KuisionerRequest;
@@ -14,17 +15,12 @@ class KuisionerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request):View
     {
-        $kuisioner = Kuisioner::paginate();
-
-        return view('kuisioner.index', compact('kuisioner'))
-            ->with('i', ($request->input('page', 1) - 1) * $kuisioner->perPage());
+        $main_kuisioner = MainKuisioner::all();
+        return view('admin.kuisioner.index', compact('main_kuisioner'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
         $kuisioner = new Kuisioner();
@@ -35,22 +31,50 @@ class KuisionerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(KuisionerRequest $request): RedirectResponse
-    {
-        Kuisioner::create($request->validated());
+    public function store(Request $request)
+{
+    // Validasi input
+    $request->validate([
+        'subject' => 'required|string|max:255',
+        'kuisioner' => 'required|array|min:1',
+        'kuisioner.*' => 'required|string|max:255',
+    ]);
 
-        return Redirect::route('kuisioner.index')
-            ->with('success', 'Kuisioner created successfully.');
+    // Buat entry baru di tabel MainKuisioner
+    $mainKuisioner = MainKuisioner::create([
+        'subject' => $request->subject,
+    ]);
+
+    // Ambil id_main_kuisioner yang baru saja dibuat
+    $id_main_kuisioner = $mainKuisioner->id_main_kuisioner;
+
+    // Simpan kuisioner yang terkait dengan MainKuisioner baru
+    foreach ($request->kuisioner as $item) {
+        Kuisioner::create([
+            'id_main_kuisioner' => $id_main_kuisioner,
+            'kuisioner' => $item
+        ]);
     }
 
+    // Redirect ke halaman index kuisioner atau lakukan sesuatu yang sesuai
+    return redirect()->route('admin.kuisioner')->with('success', 'Kuisioner created successfully.');
+}
+    public function info_create():View{
+        return view('admin.kuisioner.create');
+    }
     /**
      * Display the specified resource.
      */
-    public function show($id): View
+    public function show($id)
     {
-        $kuisioner = Kuisioner::find($id);
+        $kuisioner = Kuisioner::where('id_main_kuisioner', $id)->get();
+    if (!$kuisioner) {
+        // Handle the case where the kuisioner is not found
+        return redirect()->route('admin.kuisioner')->with('error', 'Kuisioner not found');
+    }
 
-        return view('kuisioner.show', compact('kuisioner'));
+    // Return the view with the found kuisioner
+    return view('admin.kuisioner.info', compact('kuisioner'));
     }
 
     /**
