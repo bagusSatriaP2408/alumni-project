@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\HasilKuisioner;
 use App\Models\Kuisioner;
 use App\Models\MainKuisioner;
+use App\Models\Post;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -49,6 +51,23 @@ class DatabaseSeeder extends Seeder
         Kuisioner::create([
             "id_main_kuisioner"=>1,
             "kuisioner"=>"k2"
+        ]);
+        Post::create([
+            "user_id"=>1,
+            "gambar"=>"",
+            "judul"=>"Test",
+            "slug"=>"test",
+            "deskripsi"=>"test"
+        ]);
+        HasilKuisioner::create([
+            "email"=>"a@gmail.com",
+            "id_kuisioner"=>1,
+            "hasil_kuisioner"=>"test"
+        ]);
+        HasilKuisioner::create([
+            "email"=>"b@gmail.com",
+            "id_kuisioner"=>2,
+            "hasil_kuisioner"=>"test"
         ]);
     }
 

@@ -29,7 +29,9 @@ Route::group(['prefix' => 'Admin'], function () {
     Route::get('/kuisioner/info/{id}',[KuisionerController::class, 'show'])->name('admin.kuisioner.info');
     Route::get('/kuisioner/create',[KuisionerController::class, 'info_create'])->name('admin.kuisioner.create');
     Route::post('/kuisioner/create',[KuisionerController::class, 'store'])->name('admin.kuisioner.create.store');
+    Route::get('/kuisioner/edit/{id}',[KuisionerController::class, 'edit'])->name('admin.kuisioner.edit');
+    Route::post('/kuisioner/delete/{id}',[KuisionerController::class, 'destroy'])->name('admin.kuisioner.delete');
+    Route::get('/kuisioner/hasil/{id}',[KuisionerController::class, 'show_hasil'])->name('admin.kuisioner.hasil');
     Route::get('/postingan',[PostController::class, 'show_admin'])->name('admin.postingan');
-
 });
 require __DIR__.'/auth.php';

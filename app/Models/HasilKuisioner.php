@@ -19,7 +19,7 @@ class HasilKuisioner extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['id_hasil_kuisioner', 'username', 'id_kuisioner', 'hasil_kuisioner',];
+    protected $fillable = ['id_hasil_kuisioner', 'email', 'id_kuisioner', 'hasil_kuisioner',];
 
 
     /**

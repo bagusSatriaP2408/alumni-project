@@ -25,13 +25,16 @@
                                 <td class="py-2 px-4">{{ $m->subject }}</td>
                                 <td class="py-2 px-4">
                                     <a href="{{ route('admin.kuisioner.info', ['id' => $m->id_main_kuisioner]) }}" class="bg-blue-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">info</a>
-                                    <a href="" class="bg-blue-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">hasil</a>
+                                    <a href="{{ route('admin.kuisioner.hasil', ['id' => $m->id_main_kuisioner]) }}" class="bg-blue-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">hasil</a>
                                 
                                 </td>
                                 <td class="py-2 px-4">
-                                    <a href="" class="bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">edit</a>
-                                    <a href="" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">delete</a>
-                                
+                                    <a href="{{ route('admin.kuisioner.edit', ['id' => $m->id_main_kuisioner]) }}" class="bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">edit</a>
+                                    <form action="{{ route('admin.kuisioner.delete',['id' => $m->id_main_kuisioner])}}" method="POST" class="inline-block">
+                                        @csrf
+                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">delete</button>
+                                    </form>
+                                                          
                                 </td>
                             </tr>
                         @endforeach
