@@ -26,10 +26,13 @@ class PostController extends Controller
             'posts' => $posts,
         ]);
     }
-    public function show_admin(Request $request):View
+    public function show_admin(Request $request): View
     {
+        // Ambil semua data dari tabel posts beserta relasi user
+        $posts = Post::with('user')->get();
 
-        return view('admin.postingan');
+        // Kirim data ke view
+        return view('admin.postingan', compact('posts'));
     }
         
         /**
@@ -126,5 +129,10 @@ class PostController extends Controller
     {   
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus!');
+    }
+    public function destroy_admin(Post $post)
+    {   
+        $post->delete();
+        return redirect()->route('admin.postingan')->with('success', 'Post berhasil dihapus!');
     }
 }

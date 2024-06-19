@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Post::create([
             "user_id"=>1,
-            "gambar"=>"",
+            "gambar"=>"images/posts/0yQDomtiaZmcgLzJi7phSBctlz630sJ0jng4XffT.jpg",
             "judul"=>"Test",
             "slug"=>"test",
             "deskripsi"=>"test"
@@ -69,6 +69,7 @@ class DatabaseSeeder extends Seeder
             "id_kuisioner"=>2,
             "hasil_kuisioner"=>"test"
         ]);
+
     }
 
 }
