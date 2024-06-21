@@ -2,6 +2,7 @@
 
 use App\Http\Controllers;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\KuisionerController;
 use App\Http\Controllers\PostController;
 use App\Models\MainKuisioner;
@@ -13,12 +14,17 @@ Route::get('/dashboard', Controllers\DashboardController::class)->middleware(['a
 
 Route::get('posts', [Controllers\PostController::class, 'index'])->name('posts.index');
 
+Route::get('search', [Controllers\SearchController::class, 'index'])->name('search.index');
+Route::get('search/profile/{id}', [Controllers\ProfileController::class, 'show'])->name('profile.show');
+
+Route::post('search', [Controllers\SearchController::class, 'search'])->name('search.search');
 Route::middleware('auth')->group(function () {
     Route::resource('posts', Controllers\PostController::class)->except('index');
     Route::get('/my-posts', [Controllers\PostController::class, 'userPosts'])->name('posts.user_posts');
     Route::get('/profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('kuisioner',Controllers\UserKuisionerController::class);
 });
 Route::group(['prefix' => 'Admin'], function () {
     Route::get('/Dashboard', [AdminController::class, 'index'])->name('admin.dashboard');

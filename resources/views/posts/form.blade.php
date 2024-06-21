@@ -26,7 +26,6 @@
                     <form action="{{ $page_meta['url'] }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                         @method($page_meta['method'])
                         @csrf
-
                         <div>
                             <x-input-label for="gambar" class="sr-only" :value="__('gambar')" />
                             <input id="gambar" type="file" name="gambar"/>

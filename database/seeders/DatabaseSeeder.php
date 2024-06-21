@@ -7,7 +7,9 @@ use App\Models\Admin;
 use App\Models\HasilKuisioner;
 use App\Models\Kuisioner;
 use App\Models\MainKuisioner;
+use App\Models\Pekerjaan;
 use App\Models\Post;
+use App\Models\Prodi;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,16 +25,18 @@ class DatabaseSeeder extends Seeder
             "email"=>"a@gmail.com",
             "name"=>"ad",
             "password"=>"a",
+            "tahun_masuk"=>"2000",
+            "tahun_lulus"=>"2005",
+            "prodi"=>"1"
 
             ]);
         User::create([
             "email"=>"b@gmail.com",
             "name"=>"tt",
             "password"=>"a",
-        ]);
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            "tahun_masuk"=>"2003",
+            "tahun_lulus"=>"2008",
+            "prodi"=>"2"
         ]);
         Admin::create([
             "email"=>"admin@admin.com",
@@ -69,7 +73,25 @@ class DatabaseSeeder extends Seeder
             "id_kuisioner"=>2,
             "hasil_kuisioner"=>"test"
         ]);
-
+        Prodi::create([
+            "id"=>"1",
+            "name"=>"Teknik Informatika"
+        ]);
+        Prodi::create([
+            "id"=>"2",
+            "name"=>"Sistem Informasi"
+        ]);
+        Pekerjaan::create([
+            "id"=>"1",
+            "user_id"=>"1",
+            "name"=>"fullstack di google"
+        ]);
+        Pekerjaan::create([
+            "id"=>"2",
+            "user_id"=>"1",
+            "name"=>"enginerring di google"
+        ]);
+    
     }
 
 }

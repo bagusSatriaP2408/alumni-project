@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Pekerjaan;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +58,17 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+    public function show($id)
+    {
+        $users = User::join('prodi', 'users.prodi', '=', 'prodi.id')
+                     ->select('users.*', 'prodi.name as prodi')
+                     ->get();    
+               
+        // Ambil data pengguna berdasarkan ID
+        $user = $users->where('id', $id)->first();
+        $pekerjaan = Pekerjaan::where('user_id', $id)->get();
+        // Kirim data pengguna ke view profile
+        return view('profile', compact('user','pekerjaan'));
     }
 }

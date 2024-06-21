@@ -18,6 +18,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('approved')->default(0);
+            $table->year('tahun_masuk');
+            $table->year('tahun_lulus');
+            $table->unsignedBigInteger('prodi');
             $table->rememberToken();
             $table->timestamps();
         });
