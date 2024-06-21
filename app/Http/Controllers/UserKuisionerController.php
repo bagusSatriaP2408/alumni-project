@@ -13,10 +13,10 @@ class UserKuisionerController extends Controller
     public function index()
     {
         // Ambil ID pengguna saat ini, misalnya:
-        $userId = auth()->user()->email;
+        $userId = auth()->user()->nim;
     
         // Cek apakah ada entri kuisioner yang sudah diisi oleh pengguna
-        $hasilkuisioner = HasilKuisioner::where('email', $userId)->first();
+        $hasilkuisioner = HasilKuisioner::where('nim', $userId)->first();
         
         // Jika $hasilkuisioner tidak null (artinya sudah ada isian kuisioner), 
         // maka tidak perlu menyertakan $hasilkuisioner saat memanggil view
@@ -65,7 +65,7 @@ class UserKuisionerController extends Controller
     
             // Simpan data ke hasil_kuisioner
             HasilKuisioner::create([
-                'email' => $user->email,
+                'nim' => $user->nim,
                 'id_kuisioner' => $kuisioner->id_kuisioner,
                 'hasil_kuisioner' => $response,
                 // Sesuaikan dengan field lain yang dibutuhkan

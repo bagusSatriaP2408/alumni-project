@@ -2,6 +2,7 @@
 
 use App\Http\Controllers;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\KuisionerController;
 use App\Http\Controllers\PostController;
@@ -26,20 +27,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('kuisioner',Controllers\UserKuisionerController::class);
 });
-Route::group(['prefix' => 'Admin'], function () {
+Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function () {
     Route::get('/Dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/Lulusan', [AdminController::class, 'show'])->name('admin.lulusan');
-    Route::post('/Lulusan/setujui',[AdminController::class, 'setujui'])->name('admin.lulusan.setujui');
-    Route::post('/Lulusan/Tolak',[AdminController::class, 'tolak'])->name('admin.lulusan.tolak');
-    Route::get('/kuisioner',[KuisionerController::class, 'index'])->name('admin.kuisioner');
-    Route::get('/kuisioner/info/{id}',[KuisionerController::class, 'show'])->name('admin.kuisioner.info');
-    Route::get('/kuisioner/create',[KuisionerController::class, 'info_create'])->name('admin.kuisioner.create');
-    Route::post('/kuisioner/create',[KuisionerController::class, 'store'])->name('admin.kuisioner.create.store');
-    Route::get('/kuisioner/edit/{id}',[KuisionerController::class, 'edit'])->name('admin.kuisioner.edit');
-    Route::post('/kuisioner/edit/{id}',[KuisionerController::class, 'edit_store'])->name('admin.kuisioner.edit.store');
-    Route::post('/kuisioner/delete/{id}',[KuisionerController::class, 'destroy'])->name('admin.kuisioner.delete');
-    Route::get('/kuisioner/hasil/{id}',[KuisionerController::class, 'show_hasil'])->name('admin.kuisioner.hasil');
-    Route::get('/postingan',[PostController::class, 'show_admin'])->name('admin.postingan');
+    Route::post('/Lulusan/setujui', [AdminController::class, 'setujui'])->name('admin.lulusan.setujui');
+    Route::post('/Lulusan/Tolak', [AdminController::class, 'tolak'])->name('admin.lulusan.tolak');
+    Route::get('/kuisioner', [KuisionerController::class, 'index'])->name('admin.kuisioner');
+    Route::get('/kuisioner/info/{id}', [KuisionerController::class, 'show'])->name('admin.kuisioner.info');
+    Route::get('/kuisioner/create', [KuisionerController::class, 'info_create'])->name('admin.kuisioner.create');
+    Route::post('/kuisioner/create', [KuisionerController::class, 'store'])->name('admin.kuisioner.create.store');
+    Route::get('/kuisioner/edit/{id}', [KuisionerController::class, 'edit'])->name('admin.kuisioner.edit');
+    Route::post('/kuisioner/edit/{id}', [KuisionerController::class, 'edit_store'])->name('admin.kuisioner.edit.store');
+    Route::post('/kuisioner/delete/{id}', [KuisionerController::class, 'destroy'])->name('admin.kuisioner.delete');
+    Route::get('/kuisioner/hasil/{id}', [KuisionerController::class, 'show_hasil'])->name('admin.kuisioner.hasil');
+    Route::get('/postingan', [PostController::class, 'show_admin'])->name('admin.postingan');
     Route::post('/postingan/{post}', [PostController::class, 'destroy_admin'])->name('admin.postingan.delete');
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy_admin'])->name('logout');
 });
+
 require __DIR__.'/auth.php';

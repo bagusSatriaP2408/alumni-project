@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create("hasil_kuisioner", function (Blueprint $table){
             $table->id('id_hasil_kuisioner');
-            $table->string('email');
+            $table->string('nim')->unique();
             $table->unsignedBigInteger('id_kuisioner');
             $table->string('hasil_kuisioner')->nullable();
-            $table->foreign("email")->references("email")->on("users")->constrained();
+            $table->foreign("nim")->references("nim")->on("users")->constrained();
             $table->foreign("id_kuisioner")->references("id_kuisioner")->on("kuisioner")->constrained();
         });
     }

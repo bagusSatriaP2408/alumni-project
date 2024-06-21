@@ -32,11 +32,20 @@ public function store(Request $request): RedirectResponse
             $request->session()->regenerate();
             $request->session()->put('email', auth()->guard('web-admin')->user()->email);
             return redirect()->route('admin.dashboard');
-        } elseif (auth()->guard('web')->attempt($credentials)) {
-            // If authentication is successful for web-lulusan, store user data in session
-            $request->session()->regenerate();
-            $request->session()->put('email', $credentials['email']);
-            return redirect()->route('home');
+        }  elseif (auth()->guard('web')->attempt($credentials)) {
+            // Check if the authenticated user is approved
+            $user = auth()->guard('web')->user();
+            if ($user->approved) {
+                $request->session()->regenerate();
+                $request->session()->put('email', $user->email);
+                return redirect()->route('home');
+            } else {
+                // If the user is not approved, log them out and show an error
+                auth()->guard('web')->logout();
+                return back()->withErrors([
+                    'email' => 'Akun Anda belum disetujui.'
+                ])->onlyInput('email');
+            }
         } else {
             // If authentication fails
             return back()->withErrors([
@@ -51,6 +60,16 @@ public function store(Request $request): RedirectResponse
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+    public function destroy_admin(Request $request): RedirectResponse
+    {
+        auth()->guard('web-admin')->logout();
 
         $request->session()->invalidate();
 

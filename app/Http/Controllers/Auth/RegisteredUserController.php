@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Prodi;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -19,7 +20,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $prodi=Prodi::all();
+        return view('auth.register',compact('prodi'));
     }
 
     /**
@@ -31,14 +33,22 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'nim' => ['required', 'string', 'digits:12','unique:'.User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'tahun_masuk' => ['required', 'digits:4'],
+            'tahun_lulus' => ['required', 'digits:4'],
+            'prodi'=>['required'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'nim' => $request->nim,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'tahun_masuk' => $request->tahun_masuk,
+            'tahun_lulus' => $request->tahun_lulus,
+            'prodi'=> $request->prodi,
         ]);
 
         event(new Registered($user));

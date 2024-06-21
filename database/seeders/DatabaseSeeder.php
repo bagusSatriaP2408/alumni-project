@@ -22,15 +22,18 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         User::create([
-            "email"=>"a@gmail.com",
+            "nim"=>"220411100113",
+            "email"=>"andreeka852@gmail.com",
             "name"=>"ad",
             "password"=>"a",
             "tahun_masuk"=>"2000",
             "tahun_lulus"=>"2005",
-            "prodi"=>"1"
+            "prodi"=>"1",
+            "approved"=>"1"
 
             ]);
         User::create([
+            "nim"=>"200411100113",
             "email"=>"b@gmail.com",
             "name"=>"tt",
             "password"=>"a",
@@ -64,12 +67,12 @@ class DatabaseSeeder extends Seeder
             "deskripsi"=>"test"
         ]);
         HasilKuisioner::create([
-            "email"=>"a@gmail.com",
+            "nim"=>"220411100113",
             "id_kuisioner"=>1,
             "hasil_kuisioner"=>"test"
         ]);
         HasilKuisioner::create([
-            "email"=>"b@gmail.com",
+            "nim"=>"200411100113",
             "id_kuisioner"=>2,
             "hasil_kuisioner"=>"test"
         ]);
