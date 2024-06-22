@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,6 +18,15 @@ class NewPasswordController extends Controller
     /**
      * Display the password reset view.
      */
+    public function showUser()
+    {
+        $email = session('verified_email');
+
+        if (!$email) {
+            return redirect()->route('ubah.form')->withErrors(['email' => 'Tolong verifikasi email anda terlebih dahulu']);
+        }
+        return view('auth.reset-password', compact('email' ));
+    }
     public function create(Request $request): View
     {
         return view('auth.reset-password', ['request' => $request]);
@@ -29,6 +39,7 @@ class NewPasswordController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
         $request->validate([
             'token' => ['required'],
             'email' => ['required', 'email'],
@@ -57,5 +68,27 @@ class NewPasswordController extends Controller
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withInput($request->only('email'))
                             ->withErrors(['email' => __($status)]);
+    }
+    public function newpassword(Request $request): RedirectResponse
+    {
+        // Validasi request
+        $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
+        ]);
+        // Ambil pengguna berdasarkan email
+        $user = User::where('email', $request->email)->first();
+
+        // Periksa apakah pengguna ditemukan
+        if (!$user) {
+            return back()->withErrors(['email' => 'Email not found']); // Mengembalikan ke halaman sebelumnya dengan pesan error
+        }
+
+        // Ubah password pengguna
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('login')->with('success', 'Password has been updated successfully!');
     }
 }

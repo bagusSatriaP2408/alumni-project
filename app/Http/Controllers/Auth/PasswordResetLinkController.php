@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendUniqueCode;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
 
@@ -41,4 +44,44 @@ class PasswordResetLinkController extends Controller
                     : back()->withInput($request->only('email'))
                             ->withErrors(['email' => __($status)]);
     }
+    public function sendCode(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ], [
+            'email.required' => 'Kolom email harus diisi.',
+            'email.email' => 'Format email tidak valid.',
+        ]);
+
+        $email = $request->email;
+        $uniqueCode = rand(100000, 999999); 
+
+        session(['unique_code' => $uniqueCode, 'email' => $email]);
+
+        Mail::to($email)->send(new SendUniqueCode($uniqueCode));
+
+        return redirect()->back()->with('emailSubmitted', true);
+    }
+
+    public function confirmCode(Request $request)
+    {
+        $request->validate([
+            'code' => 'required|numeric'
+        ], [
+            'code.required' => 'Kolom kode harus diisi.',
+            'code.numeric' => 'Kolom kode harus berupa angka.',
+        ]);
+
+        $submittedCode = $request->code;
+        $storedCode = session('unique_code');
+        $email = session('email');
+
+        if ($submittedCode == $storedCode) {
+            session(['verified_email' => $email]);
+            return redirect()->route('password.reset');  
+        } else {
+            return redirect()->back()->withErrors(['code' => 'Code yang anda masukkan salah']);
+        }
+    }
+
 }
