@@ -84,16 +84,16 @@ class DatabaseSeeder extends Seeder
             "id"=>"2",
             "name"=>"Sistem Informasi"
         ]);
-        Pekerjaan::create([
-            "id"=>"1",
-            "user_id"=>"1",
-            "name"=>"fullstack di google"
-        ]);
-        Pekerjaan::create([
-            "id"=>"2",
-            "user_id"=>"1",
-            "name"=>"enginerring di google"
-        ]);
+        // Pekerjaan::create([
+        //     "id"=>"1",
+        //     "user_id"=>"1",
+        //     "name"=>"fullstack di google"
+        // ]);
+        // Pekerjaan::create([
+        //     "id"=>"2",
+        //     "user_id"=>"1",
+        //     "name"=>"enginerring di google"
+        // ]);
     
     }
 

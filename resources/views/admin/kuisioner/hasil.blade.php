@@ -7,22 +7,20 @@
     <div class="flex justify-center">
         <div class="w-full">
             <div class="bg-white shadow-md rounded my-6">
-                <table class="min-w-max w-full table-auto">
+                <table class="min-w-max w-full table-auto text-center">
                     <thead class="bg-gray-200">
                         <tr>
-                            <th class="py-2 px-4 border-b">email</th>
-                            <th class="py-2 px-4 border-b">kuisioner</th>
-                            <th class="py-2 px-4 border-b">hasil kuisioner</th>
-
+                            <th class="py-2 px-4 border-b">Email</th>
+                            <th class="py-2 px-4 border-b">Kuisioner</th>
+                            <th class="py-2 px-4 border-b">Hasil Kuisioner</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($hasilKuisioner as $h )
                         @foreach ($kuisioner as $k)
-
                             <tr class="border-b">
                                 <td class="py-2 px-4">{{ $h->email }}</td>
-                                <td class="py-2 px-4">{{ $k->kuisioner }}</td>
+                                <td class="py-2 px-4">{{ ucwords($k->kuisioner) }}</td>
                                 <td class="py-2 px-4">{{ $h->hasil_kuisioner }}</td>
                                 </td>
                             </tr>

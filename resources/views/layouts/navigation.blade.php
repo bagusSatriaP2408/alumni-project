@@ -16,7 +16,7 @@
                         {{ __('Home') }}
                     </x-nav-link>
                     <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
-                        {{ __('Post') }}
+                        {{ __('Postingan') }}
                     </x-nav-link>
                     @if(Auth::user())
                     <x-nav-link :href="route('kuisioner.index')" :active="request()->routeIs('kuisioner.index')">

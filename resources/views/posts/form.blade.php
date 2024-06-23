@@ -26,6 +26,13 @@
                     <form action="{{ $page_meta['url'] }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                         @method($page_meta['method'])
                         @csrf
+
+                        @if($page_meta['method'] == 'PUT' && $posts->gambar)
+                            <div class="mb-4">
+                                <img src="{{ asset('storage/' . $posts->gambar) }}" alt="Gambar Postingan" class="max-w-autoh">
+                            </div>
+                        @endif
+
                         <div>
                             <x-input-label for="gambar" class="sr-only" :value="__('gambar')" />
                             <input id="gambar" type="file" name="gambar"/>

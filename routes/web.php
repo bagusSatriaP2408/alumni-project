@@ -15,17 +15,20 @@ Route::get('/dashboard', Controllers\DashboardController::class)->middleware(['a
 
 Route::get('posts', [Controllers\PostController::class, 'index'])->name('posts.index');
 
+
 Route::get('search', [Controllers\SearchController::class, 'index'])->name('search.index');
 Route::get('search/profile/{id}', [Controllers\ProfileController::class, 'show'])->name('profile.show');
 
 Route::post('search', [Controllers\SearchController::class, 'search'])->name('search.search');
 Route::middleware('auth')->group(function () {
-    Route::resource('posts', Controllers\PostController::class)->except('index');
+    Route::resource('posts', Controllers\PostController::class)->except(['index', 'show']);
     Route::get('/my-posts', [Controllers\PostController::class, 'userPosts'])->name('posts.user_posts');
     Route::get('/profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('kuisioner',Controllers\UserKuisionerController::class);
+    Route::post('/profile/pekerjaan', [Controllers\ProfileController::class, 'store_pekerjaan'])->name('profile.store_pekerjaan');
+    Route::patch('/profile/pekerjaan', [Controllers\ProfileController::class, 'update_pekerjaan'])->name('profile.update_pekerjaan');
 });
 Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function () {
     Route::get('/Dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -40,9 +43,14 @@ Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function
     Route::post('/kuisioner/edit/{id}', [KuisionerController::class, 'edit_store'])->name('admin.kuisioner.edit.store');
     Route::post('/kuisioner/delete/{id}', [KuisionerController::class, 'destroy'])->name('admin.kuisioner.delete');
     Route::get('/kuisioner/hasil/{id}', [KuisionerController::class, 'show_hasil'])->name('admin.kuisioner.hasil');
+
     Route::get('/postingan', [PostController::class, 'show_admin'])->name('admin.postingan');
+    Route::get('/postingan/{slug}', [PostController::class, 'post_admin_detail'])->name('admin.postingan.show');
     Route::post('/postingan/{post}', [PostController::class, 'destroy_admin'])->name('admin.postingan.delete');
+
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy_admin'])->name('logout');
 });
+
+Route::get('posts/{post}', [Controllers\PostController::class, 'show'])->name('posts.show');
 
 require __DIR__.'/auth.php';

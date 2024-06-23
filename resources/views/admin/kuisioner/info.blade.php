@@ -6,23 +6,18 @@
     <div class="flex justify-center">
         <div class="w-full">
             <div class="bg-white shadow-md rounded my-6">
-                <table class="min-w-max w-full table-auto">
+                <table class="min-w-max w-full table-auto text-center">
                     <thead class="bg-gray-200">
                         <tr>
                             <th class="py-2 px-4 border-b">No</th>
-                            <th class="py-2 px-4 border-b">subject</th>
-
+                            <th class="py-2 px-4 border-b">Subject</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($kuisioner as $n)
-
                             <tr class="border-b">
                                 <td class="py-2 px-4">{{ $n->id_kuisioner }}</td>
-                                <td class="py-2 px-4">{{ $n->kuisioner }}</td>
-
-
-                                </td>
+                                <td class="py-2 px-4">{{ ucwords($n->kuisioner) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

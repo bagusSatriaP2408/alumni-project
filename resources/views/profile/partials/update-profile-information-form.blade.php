@@ -47,6 +47,30 @@
             @endif
         </div>
 
+        <div class="mt-4">
+            <label for="nim" class="block text-sm font-medium text-gray-700">NIM</label>
+            <input type="text" name="nim" id="nim" value="{{ old('nim', $user->nim) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        </div>
+        
+        <div class="mt-4">
+            <label for="tahun_masuk" class="block text-sm font-medium text-gray-700">Tahun Masuk</label>
+            <input type="number" name="tahun_masuk" id="tahun_masuk" value="{{ old('tahun_masuk', $user->tahun_masuk) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        </div>
+        
+        <div class="mt-4">
+            <label for="tahun_lulus" class="block text-sm font-medium text-gray-700">Tahun Lulus</label>
+            <input type="number" name="tahun_lulus" id="tahun_lulus" value="{{ old('tahun_lulus', $user->tahun_lulus) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        </div>
+        
+        <div class="mt-4">
+            <label for="prodi" class="block text-sm font-medium text-gray-700">Prodi</label>
+            <select id="prodi" name="prodi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                @foreach (\App\Models\Prodi::all() as $prodi)
+                    <option value="{{ $prodi->id }}" {{ (old('prodi', $user->prodi) == $prodi->id) ? 'selected' : '' }}>{{ $prodi->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

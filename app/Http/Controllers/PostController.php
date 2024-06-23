@@ -28,12 +28,12 @@ class PostController extends Controller
     }
     public function show_admin(Request $request): View
     {
-        // Ambil semua data dari tabel posts beserta relasi user
         $posts = Post::with('user')->get();
 
-        // Kirim data ke view
         return view('admin.postingan', compact('posts'));
     }
+
+    
         
         /**
          * Show the form for creating a new resource.
@@ -56,7 +56,6 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        // dd($request->all());
         $file = $request->file('gambar');
 
         $request->user()->posts()->create([
@@ -70,9 +69,16 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($slug)
     {
+        $post = Post::where('slug', $slug)->firstOrFail();
         return view('posts.show', compact('post'));
+    }
+
+    public function post_admin_detail($slug)
+    {
+        $post = Post::where('slug', $slug)->firstOrFail();
+        return view('admin.postingan-show', compact('post'));
     }
 
     public function userPosts(Request $request)
@@ -108,7 +114,7 @@ class PostController extends Controller
     {
         if ($request->hasFile('gambar')) {
             Storage::delete($post->gambar);
-            $file = $request->file('gambar');
+            $file = $request->file('gambar')->store('images/posts');
         } else { 
             $file = $post->gambar;
         }
@@ -116,10 +122,10 @@ class PostController extends Controller
         $post->update([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $file->store('images/posts'),
+            'gambar' => $file,
         ]);
 
-        return to_route('posts.index');
+        return to_route('posts.user_posts');
     }
 
     /**
@@ -128,7 +134,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {   
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus!');
+        return redirect()->route('posts.detail')->with('success', 'Post berhasil dihapus!');
     }
     public function destroy_admin(Post $post)
     {   

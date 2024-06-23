@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('pekerjaan', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');
-            $table->string('name');
+            $table->string('nama_pekerjaan')->nullable();
+            $table->string('alamat_perusahaan')->nullable();
+            $table->date('mulai_bekerja')->nullable();
+            $table->date('selesai_bekerja')->nullable();
         });
     }
 

@@ -16,7 +16,10 @@ class Pekerjaan extends Model
     protected $fillable = [
         'id',
         'user_id',
-        'name'
+        'nama_pekerjaan',
+        'alamat_perusahaan',
+        'mulai_bekerja',
+        'selesai_bekerja',
     ];
     public function Pekerjaan()
     {

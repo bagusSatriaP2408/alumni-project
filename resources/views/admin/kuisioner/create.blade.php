@@ -1,10 +1,12 @@
 <x-Admin-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Buat Kuisioner Baru') }}
+        </h2>
+    </x-slot>
     <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center py-4">
-            <h2 class="text-2xl font-semibold">Buat Kuisioner Baru</h2>
-        </div>
         <div class="flex justify-center">
-            <div class="w-full max-w-md">
+            <div class="w-full max-wt-2xl">
                 <div class="bg-white shadow-md rounded my-6 p-6">
                     <form id="kuisionerForm" action="{{route('admin.kuisioner.create.store')}}" method="POST" class="space-y-4">
                         @csrf

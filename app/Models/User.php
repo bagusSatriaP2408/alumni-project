@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(\App\Models\Prodi::class, 'prodi', 'id');
     }
+
+    public function pekerjaan()
+    {
+        return $this->hasOne(Pekerjaan::class);
+    }
 }

@@ -38,18 +38,18 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
-    public function update_pekerjaan(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+    // public function update_pekerjaan(ProfileUpdateRequest $request): RedirectResponse
+    // {
+    //     $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+    //     if ($request->user()->isDirty('email')) {
+    //         $request->user()->email_verified_at = null;
+    //     }
 
-        $request->user()->save();
+    //     $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
+    //     return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    // }
     /**
      * Delete the user's account.
      */
@@ -81,5 +81,53 @@ class ProfileController extends Controller
         $pekerjaan = Pekerjaan::where('user_id', $id)->get();
         // Kirim data pengguna ke view profile
         return view('profile', compact('user','pekerjaan'));
+    }
+
+    public function store_pekerjaan(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        $mulaiBekerja = $request->input('mulai_bekerja');
+        $selesaiBekerja = $request->input('selesai_bekerja');
+
+        if ($mulaiBekerja > $selesaiBekerja) {
+            return Redirect::route('profile.edit')->with('error', 'Selesai bekerja tidak boleh kurang dari mulai bekerja');
+        }
+
+        Pekerjaan::create([
+            'user_id' => $user->id,
+            'nama_pekerjaan' => $request->input('nama_pekerjaan'),
+            'alamat_perusahaan' => $request->input('alamat_perusahaan'),
+            'mulai_bekerja' => $mulaiBekerja,
+            'selesai_bekerja' => $selesaiBekerja,
+        ]);
+
+        return Redirect::route('profile.edit')->with('status', 'pekerjaan-added');
+    }
+
+    public function update_pekerjaan(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        $pekerjaan = Pekerjaan::where('user_id', $user->id)->first();
+        $mulaiBekerja = $request->input('mulai_bekerja');
+        $selesaiBekerja = $request->input('selesai_bekerja');
+
+        if ($mulaiBekerja > $selesaiBekerja) {
+            return Redirect::route('profile.edit')->with('error', 'Selesai bekerja tidak boleh kurang dari mulai bekerja');
+        }
+
+        if ($pekerjaan) {
+            $pekerjaan->name = $request->input('name');
+            $pekerjaan->save();
+        } else {
+            Pekerjaan::create([
+                'user_id' => $user->id,
+                'nama_pekerjaan' => $request->input('nama_pekerjaan'),
+                'alamat_perusahaan' => $request->input('alamat_perusahaan'),
+                'mulai_bekerja' => $request->input('mulai_bekerja'),
+                'selesai_bekerja' => $request->input('selesai_bekerja'),
+            ]);
+        }
+
+        return Redirect::route('profile.edit')->with('status', 'pekerjaan-updated');
     }
 }
