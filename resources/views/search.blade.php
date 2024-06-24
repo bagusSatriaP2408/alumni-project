@@ -22,6 +22,7 @@
     </div>
 
     <div class="result bg-gray-100 p-5 mt-5">
+
         <table class="table-auto w-full bg-white shadow-md rounded my-6 overflow-x-auto">
             <thead class="bg-gray-200">
                 <tr>

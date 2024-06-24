@@ -7,6 +7,9 @@
                 </h3>
             </div>
             <div class="border-t border-gray-200">
+                <div class="mb-4">
+                    <img src="{{ asset('storage/' . $user->gambar) }}" alt="Gambar Postingan" class="max-w-autoh">
+                </div>
                 <dl>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">

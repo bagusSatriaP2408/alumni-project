@@ -130,4 +130,20 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with('status', 'pekerjaan-updated');
     }
+    public function update_profile(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        $file = $request->file('gambar');
+    
+        // Simpan file gambar ke direktori 'images/profiles' dan dapatkan path-nya
+        $filePath = $file ? $file->store('images/profiles') : null;
+    
+        // Update atau insert data ke dalam tabel Pekerjaan
+        User::updateOrInsert(
+            ['id' => $user->id], // Kondisi untuk menentukan apakah akan mengupdate atau insert
+            ['gambar' => $filePath] // Data yang akan diupdate atau disimpan
+        );
+        return Redirect::route('profile.edit');
+    }
+    
 }

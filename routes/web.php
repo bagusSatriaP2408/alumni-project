@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('kuisioner',Controllers\UserKuisionerController::class);
     Route::post('/profile/pekerjaan', [Controllers\ProfileController::class, 'store_pekerjaan'])->name('profile.store_pekerjaan');
     Route::patch('/profile/pekerjaan', [Controllers\ProfileController::class, 'update_pekerjaan'])->name('profile.update_pekerjaan');
+    Route::post('profile/gambar', [Controllers\ProfileController::class, 'update_profile'])->name('profile.gambar');
 });
 Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function () {
     Route::get('/Dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
