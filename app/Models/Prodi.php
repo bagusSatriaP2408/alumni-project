@@ -18,4 +18,9 @@ class Prodi extends Model
         'id',
         'name'
     ];
+
+    public function users()
+    {
+        return $this->hasMany(\App\Models\User::class, 'prodi', 'id');
+    }
 }

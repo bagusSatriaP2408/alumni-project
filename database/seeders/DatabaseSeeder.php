@@ -20,6 +20,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Prodi::create([
+            "id"=>"1",
+            "name"=>"Teknik Informatika"
+        ]);
+        Prodi::create([
+            "id"=>"2",
+            "name"=>"Sistem Informasi"
+        ]);
         // User::factory(10)->create();
         User::create([
             "nim"=>"220411100113",
@@ -76,14 +84,7 @@ class DatabaseSeeder extends Seeder
             "id_kuisioner"=>2,
             "hasil_kuisioner"=>"test"
         ]);
-        Prodi::create([
-            "id"=>"1",
-            "name"=>"Teknik Informatika"
-        ]);
-        Prodi::create([
-            "id"=>"2",
-            "name"=>"Sistem Informasi"
-        ]);
+        
         // Pekerjaan::create([
         //     "id"=>"1",
         //     "user_id"=>"1",

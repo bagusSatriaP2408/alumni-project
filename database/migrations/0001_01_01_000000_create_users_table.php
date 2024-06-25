@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('prodi');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('prodi')->references('id')->on('prodi')->constrained();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
