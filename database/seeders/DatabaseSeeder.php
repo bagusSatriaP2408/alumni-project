@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             "password"=>"a",
             "tahun_masuk"=>"2000",
             "tahun_lulus"=>"2005",
-            "prodi"=>"1",
+            "prodi"=>1,
             "approved"=>"1"
 
             ]);
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
             "password"=>"a",
             "tahun_masuk"=>"2003",
             "tahun_lulus"=>"2008",
-            "prodi"=>"2"
+            "prodi"=>2
         ]);
         Admin::create([
             "email"=>"admin@admin.com",
