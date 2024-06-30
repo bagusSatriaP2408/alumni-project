@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <div class="container mx-auto px-4">
         <div class="flex justify-center items-center py-4">
             <h2 class="text-2xl font-semibold">Kuisioner</h2>
@@ -22,7 +23,7 @@
                                             {{ $k->kuisioner }}
                                         </td>
                                         <td class="py-2 px-4">
-                                            <input type="text" id="kuisioner_{{ $k->id_main_kuisioner }}" name="kuisioner[{{ $k->id_main_kuisioner }}]" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan jawaban Anda" required>
+                                            <input type="text" id="kuisioner_{{ $k->id_kuisioner }}" name="kuisioner[{{ $k->id_kuisioner }}]" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan jawaban Anda" required>
                                         </td>
                                     </tr>
                                 @endforeach

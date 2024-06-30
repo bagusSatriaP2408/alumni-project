@@ -72,36 +72,22 @@ class KuisionerController extends Controller
     }
     public function show_hasil($id)
     {
-        // Ambil data kuisioner berdasarkan id_main_kuisioner
-        $kuisioner = Kuisioner::where('id_main_kuisioner', $id)->get();
-        
-        // Cek jika kuisioner tidak ditemukan
-        if ($kuisioner->isEmpty()) {
-            return redirect()->route('admin.kuisioner')->with('error', 'Kuisioner not found');
+        // Ambil data hasil kuisioner beserta kuisioner dan user terkait menggunakan eager loading
+        $hasilKuisioner = HasilKuisioner::with(['kuisioner', 'lulusan'])
+            ->whereHas('kuisioner', function ($query) use ($id) {
+                $query->where('id_main_kuisioner', $id);
+            })->get();       
+        // Cek jika hasil kuisioner tidak ditemukan
+        if ($hasilKuisioner->isEmpty()) {
+            return redirect()->route('admin.kuisioner')->with('error', 'Hasil Kuisioner not found');
         }
-        
-        // Ambil id_kuisioner dari data kuisioner yang ditemukan
-        $kuisionerIds = $kuisioner->pluck('id_kuisioner')->toArray();
-            
-        // Ambil data hasil_kuisioner berdasarkan id_kuisioner yang ditemukan
-        $hasilKuisioner = HasilKuisioner::whereIn('id_kuisioner', $kuisionerIds)->get();
-        
-        // Ambil nim dari hasil_kuisioner untuk mencari data user
-        $userIds = $hasilKuisioner->pluck('nim')->toArray(); // Assuming 'nim' is the foreign key in HasilKuisioner
     
-        // Ambil data users berdasarkan nim yang ada pada hasil_kuisioner
-        $users = User::whereIn('nim', $userIds)->get();
-        
-        // Menggabungkan data users ke dalam hasilKuisioner
-        // Disini diasumsikan setiap hasilKuisioner memiliki satu user yang terkait dengan nim
-        // Anda dapat mengatur ini sesuai hubungan dan struktur database Anda
-        foreach ($hasilKuisioner as $hasil) {
-            $hasil->user = $users->where('nim', $hasil->nim)->first();
-        }
-        
-        // Return view dengan data dari kedua tabel yang telah digabungkan
-        return view('admin.kuisioner.hasil', compact('kuisioner', 'hasilKuisioner'));
+        // Return view dengan data dari ketiga tabel yang telah digabungkan
+        return view('admin.kuisioner.hasil', compact('hasilKuisioner'));
     }
+    
+
+
     
     
 

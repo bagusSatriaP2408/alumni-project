@@ -35,7 +35,7 @@ class HasilKuisioner extends Model
      */
     public function lulusan()
     {
-        return $this->belongsTo(\App\Models\User::class, 'nim', 'nim');
+        return $this->belongsTo(\App\Models\User::class,'nim', 'nim');
     }
     
 }

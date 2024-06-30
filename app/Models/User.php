@@ -61,6 +61,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+    public function hasil_kuisioner() :HasMany
+    {
+        return $this->hasMany(\App\Models\HasilKuisioner::class);
+    }
     public function prodi() 
     {
         return $this->belongsTo(\App\Models\Prodi::class, 'prodi', 'id');
@@ -70,4 +74,5 @@ class User extends Authenticatable
     {
         return $this->hasOne(Pekerjaan::class);
     }
+
 }

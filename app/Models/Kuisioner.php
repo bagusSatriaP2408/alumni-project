@@ -23,7 +23,7 @@ class Kuisioner extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function hasilKuisioners()
+    public function hasilKuisioner()
     {
         return $this->hasMany(\App\Models\HasilKuisioner::class, 'id_kuisioner', 'id_kuisioner');
     }

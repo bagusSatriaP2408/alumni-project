@@ -75,11 +75,6 @@ class DatabaseSeeder extends Seeder
             "deskripsi"=>"test"
         ]);
         HasilKuisioner::create([
-            "nim"=>"220411100113",
-            "id_kuisioner"=>1,
-            "hasil_kuisioner"=>"test"
-        ]);
-        HasilKuisioner::create([
             "nim"=>"200411100113",
             "id_kuisioner"=>2,
             "hasil_kuisioner"=>"test"
