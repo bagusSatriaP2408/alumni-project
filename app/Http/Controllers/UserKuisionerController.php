@@ -49,15 +49,15 @@ class UserKuisionerController extends Controller
     }
     public function store(Request $request)
     {
+        
         // Validasi request sesuai kebutuhan
         $request->validate([
             // Sesuaikan dengan field yang dibutuhkan
             'kuisioner' => 'required|array', // Misalnya 'kuisioner' adalah array dari inputan kuisioner
         ]);
-    
+        
         // Ambil user yang sedang login
         $user = $request->user(); // Menggunakan user yang sedang authenticated
-    
         // Loop through kuisioner inputs and save to hasil_kuisioner
         foreach ($request->kuisioner as $kuisionerId => $response) {
             // Cari kuisioner berdasarkan ID

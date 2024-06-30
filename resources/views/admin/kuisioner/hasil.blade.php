@@ -18,17 +18,18 @@
                     </thead>
                     <tbody>
                     @foreach ($hasilKuisioner as $h )
-                        @foreach ($kuisioner as $k)
+
                             <tr class="border-b">
-                                <td class="py-2 px-4">{{ $h->user->email }}</td>
-                                <td class="py-2 px-4">{{ $h->user->name}}</td>
-                                <td class="py-2 px-4">{{ ucwords($k->kuisioner) }}</td>
+                                <td class="py-2 px-4">{{ $h->lulusan->email }}</td>
+                                <td class="py-2 px-4">{{ $h->lulusan->name}}</td>
+                                <td class="py-2 px-4">{{ $h->kuisioner->kuisioner}}</td>
                                 <td class="py-2 px-4">{{ $h->hasil_kuisioner }}</td>
                                 </td>
                             </tr>
-                            @endforeach
-                            
-                        @endforeach
+
+
+                    @endforeach    
+
                     </tbody>
                 </table>
             </div>
