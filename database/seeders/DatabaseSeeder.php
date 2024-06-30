@@ -28,61 +28,66 @@ class DatabaseSeeder extends Seeder
             "id"=>"2",
             "name"=>"Sistem Informasi"
         ]);
-        // User::factory(10)->create();
+
         User::create([
             "nim"=>"220411100113",
             "email"=>"andreeka852@gmail.com",
-            "name"=>"ad",
-            "password"=>"a",
-            "tahun_masuk"=>"2000",
-            "tahun_lulus"=>"2005",
+            "name"=>"Andre Eka",
+            "password"=>"password",
+            "tahun_masuk"=>"2022",
+            "tahun_lulus"=>"2025",
             "prodi"=>1,
             "approved"=>"1"
+        ]);
 
-            ]);
         User::create([
-            "nim"=>"200411100113",
-            "email"=>"b@gmail.com",
-            "name"=>"tt",
-            "password"=>"a",
-            "tahun_masuk"=>"2003",
-            "tahun_lulus"=>"2008",
+            "nim"=>"200411100081",
+            "email"=>"bagus081@gmail.com",
+            "name"=>"Bagus Satria",
+            "password"=>"password",
+            "tahun_masuk"=>"2022",
+            "tahun_lulus"=>"2024",
             "prodi"=>2
         ]);
+
         Admin::create([
             "email"=>"admin@admin.com",
-            "name"=>"a",
+            "name"=>"Admin",
             "password"=>"a",
+        ]);
 
-            ]);
         MainKuisioner::create([
-            "subject"=>"Test"
+            "subject"=>"Kuisioner 1"
+        ]);
 
-        ]);
         Kuisioner::create([
             "id_main_kuisioner"=>1,
-            "kuisioner"=>"k1"
+            "kuisioner"=>"Pertanyaan 1"
         ]);
+
         Kuisioner::create([
             "id_main_kuisioner"=>1,
-            "kuisioner"=>"k2"
+            "kuisioner"=>"Pertanyaan 2"
         ]);
+
         Post::create([
             "user_id"=>1,
             "gambar"=>"images/posts/0yQDomtiaZmcgLzJi7phSBctlz630sJ0jng4XffT.jpg",
-            "judul"=>"Test",
-            "slug"=>"test",
-            "deskripsi"=>"test"
+            "judul"=>"Postingan 1",
+            "slug"=>"postingan-1",
+            "deskripsi"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi. Sed euismod, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi.",
         ]);
+
         HasilKuisioner::create([
             "nim"=>"220411100113",
             "id_kuisioner"=>1,
-            "hasil_kuisioner"=>"test"
+            "hasil_kuisioner"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi. Sed euismod, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi.",
         ]);
+
         HasilKuisioner::create([
             "nim"=>"200411100113",
             "id_kuisioner"=>2,
-            "hasil_kuisioner"=>"test"
+            "hasil_kuisioner"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi.",
         ]);
         
         // Pekerjaan::create([

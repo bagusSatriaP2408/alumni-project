@@ -13,9 +13,34 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
+
+        <div>
+            @if (!$user->gambar == null)
+                <div class="mb-4 relative">
+                    <label for="gambar" class="relative">
+                        <img src="{{ asset('storage/' . $user->gambar) }}" alt="Profile Picture" class="max-w-64 h-auto rounded-full cursor-pointer">
+                        <span class="absolute inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 text-white text-sm font-medium rounded-full opacity-0 transition-opacity duration-300 hover:opacity-100 cursor-pointer max-w-64">
+                            Ubah
+                        </span>
+                    </label>
+                </div>
+            @else
+                <div class="mb-4 relative">
+                    <label for="gambar" class="relative">
+                        <img src="{{ asset('storage/images/posts/profile-none.jpeg') }}" alt="Profile Picture" class="max-w-64 h-auto rounded-full cursor-pointer">
+                        <span class="absolute inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 text-white text-sm font-medium rounded-full opacity-0 transition-opacity duration-300 hover:opacity-100 cursor-pointer max-w-64">
+                            Ubah
+                        </span>
+                    </label>
+                </div>
+            @endif
+            {{-- <x-input-label for="gambar" class="sr-only" :value="__('Picture')" /> --}}
+            <input id="gambar" type="file" name="gambar" class="hidden" />
+            <x-input-error :messages="$errors->get('gambar')"/>
+        </div>
 
         <div>
             <x-input-label for="name" :value="__('Name')" />

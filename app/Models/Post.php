@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use App\Enums\StoreStatus;
 use App\Observers\PostObserver;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

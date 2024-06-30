@@ -18,8 +18,8 @@ Route::get('posts', [Controllers\PostController::class, 'index'])->name('posts.i
 
 Route::get('search', [Controllers\SearchController::class, 'index'])->name('search.index');
 Route::get('search/profile/{id}', [Controllers\ProfileController::class, 'show'])->name('profile.show');
-
 Route::post('search', [Controllers\SearchController::class, 'search'])->name('search.search');
+
 Route::middleware('auth')->group(function () {
     Route::resource('posts', Controllers\PostController::class)->except(['index', 'show']);
     Route::get('/my-posts', [Controllers\PostController::class, 'userPosts'])->name('posts.user_posts');
@@ -29,8 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('kuisioner',Controllers\UserKuisionerController::class);
     Route::post('/profile/pekerjaan', [Controllers\ProfileController::class, 'store_pekerjaan'])->name('profile.store_pekerjaan');
     Route::patch('/profile/pekerjaan', [Controllers\ProfileController::class, 'update_pekerjaan'])->name('profile.update_pekerjaan');
-    Route::post('profile/gambar', [Controllers\ProfileController::class, 'update_profile'])->name('profile.gambar');
 });
+
 Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function () {
     Route::get('/Dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/Lulusan', [AdminController::class, 'show'])->name('admin.lulusan');

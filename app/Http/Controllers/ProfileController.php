@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\Pekerjaan;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Pekerjaan;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -28,14 +29,19 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = $request->user();
+        $user->fill($request->except(['gambar']));
+        if ($request->hasFile('gambar')) {
+            if ($user->gambar) {
+                Storage::delete($user->gambar);
+            }
+            $filePath = $request->file('gambar')->store('images/profiles');
+            $user->gambar = $filePath;
         }
-
-        $request->user()->save();
-
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+        $user->save();
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
     // public function update_pekerjaan(ProfileUpdateRequest $request): RedirectResponse
@@ -73,9 +79,9 @@ class ProfileController extends Controller
     public function show($id)
     {
         $users = User::join('prodi', 'users.prodi', '=', 'prodi.id')
-                     ->select('users.*', 'prodi.name as prodi')
-                     ->get();    
-               
+                        ->select('users.*', 'prodi.name as prodi')
+                        ->get();    
+
         // Ambil data pengguna berdasarkan ID
         $user = $users->where('id', $id)->first();
         $pekerjaan = Pekerjaan::where('user_id', $id)->get();
@@ -129,21 +135,6 @@ class ProfileController extends Controller
         }
 
         return Redirect::route('profile.edit')->with('status', 'pekerjaan-updated');
-    }
-    public function update_profile(Request $request): RedirectResponse
-    {
-        $user = $request->user();
-        $file = $request->file('gambar');
-    
-        // Simpan file gambar ke direktori 'images/profiles' dan dapatkan path-nya
-        $filePath = $file ? $file->store('images/profiles') : null;
-    
-        // Update atau insert data ke dalam tabel Pekerjaan
-        User::updateOrInsert(
-            ['id' => $user->id], // Kondisi untuk menentukan apakah akan mengupdate atau insert
-            ['gambar' => $filePath] // Data yang akan diupdate atau disimpan
-        );
-        return Redirect::route('profile.edit');
     }
     
 }

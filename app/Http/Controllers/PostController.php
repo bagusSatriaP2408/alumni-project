@@ -93,7 +93,7 @@ class PostController extends Controller
     public function edit(Request $request, Post $post)
     {
         // dd('tes');
-        // Gate::authorize('update', $post);
+        Gate::authorize('update', $post);
         // abort_if($request->user()->isNot($post->user), 401);
 
         return view('posts.form', [
