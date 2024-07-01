@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use App\Enums\StoreStatus;
+use App\Models\PostCategory;
 use App\Observers\PostObserver;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,7 @@ class Post extends Model
         'judul',
         'slug',
         'deskripsi',
+        'kategori_id',
     ];
 
     // protected function casts(): array
@@ -31,6 +33,11 @@ class Post extends Model
     public function user() :BelongsTo 
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function kategori() :BelongsTo
+    {
+        return $this->belongsTo(PostCategory::class, 'kategori_id', 'id_kategori');
     }
 
 }

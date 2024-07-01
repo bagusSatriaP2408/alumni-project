@@ -9,6 +9,7 @@ use App\Models\Kuisioner;
 use App\Models\MainKuisioner;
 use App\Models\Pekerjaan;
 use App\Models\Post;
+use App\Models\PostCategory;
 use App\Models\Prodi;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -70,12 +71,21 @@ class DatabaseSeeder extends Seeder
             "kuisioner"=>"Pertanyaan 2"
         ]);
 
+        PostCategory::create([
+            "nama_kategori"=>"Lowongan Kerja"
+        ]); 
+
+        PostCategory::create([
+            "nama_kategori"=>"Seminar"
+        ]); 
+
         Post::create([
             "user_id"=>1,
-            "gambar"=>"images/posts/0yQDomtiaZmcgLzJi7phSBctlz630sJ0jng4XffT.jpg",
+            "gambar"=>"images/posts/yDZOs5s187vBoF4xmZLQFkN55E7avdC3nA6k7WHP.jpg",
             "judul"=>"Postingan 1",
             "slug"=>"postingan-1",
             "deskripsi"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi. Sed euismod, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi.",
+            "kategori_id"=>1
         ]);
 
         HasilKuisioner::create([

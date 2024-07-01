@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('admin.postingan')" :active="request()->routeIs('admin.postingan')">
                         {{ __('Postingan') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('kategori-post.index')" :active="request()->routeIs('kategori-post.index')">
+                        {{ __('Kategori Postingan') }}
+                    </x-nav-link>
                 </div>
             </div>
             

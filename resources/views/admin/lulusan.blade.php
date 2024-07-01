@@ -19,6 +19,7 @@
                                 <th class="py-2 px-4 border-b">Email</th>
                                 <th class="py-2 px-4 border-b">Tahun Masuk</th>
                                 <th class="py-2 px-4 border-b">Tahun Lulus</th>
+                                <th class="py-2 px-4 border-b">Prodi</th>
                                 <th class="py-2 px-4 border-b">Action</th>
                             </tr>
                         </thead>
@@ -31,6 +32,7 @@
                                     <td class="py-2 px-4 text-center">{{ $u->email }}</td>
                                     <td class="py-2 px-4 text-center">{{ $u->tahun_masuk }}</td>
                                     <td class="py-2 px-4 text-center">{{ $u->tahun_lulus }}</td>
+                                    <td class="py-2 px-4 text-center">{{ ($u->prodi==1) ? "Teknik Informatika" : "Sistem Informasi" }}</td>
                                     <td class="py-2 px-4 text-center">
                                         @if(!$u->approved) <!-- Check if the user is not approved -->
                                             <form action="{{route('admin.lulusan.setujui')}}" method="POST" class="inline-block">
