@@ -8,7 +8,13 @@
                 </div>
             </div>
 
-            @if ($user->pekerjaan == null)
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('profile.partials.riwayat-pekerjaan')
+                </div>
+            </div>
+
+            @if ($hasjob == False)
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <div class="max-w-xl">
                         @include('profile.partials.tambah-pekerjaan-form')
