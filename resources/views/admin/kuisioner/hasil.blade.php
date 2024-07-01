@@ -1,5 +1,4 @@
 <x-Admin-layout>
-
 <div class="container mx-auto px-4">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -20,12 +19,11 @@
                     </thead>
                     <tbody>
                     @foreach ($hasilKuisioner as $h )
-
                             <tr class="border-b">
                                 <td class="py-2 px-4">{{ $h->lulusan->email }}</td>
                                 <td class="py-2 px-4">{{ $h->lulusan->name}}</td>
                                 <td class="py-2 px-4">{{ $h->kuisioner->kuisioner}}</td>
-                                <td class="py-2 px-4 break-words whitespace-pre-line max-w-xs">{{ $h->hasil_kuisioner }}</td>
+                                <td class="py-2 px-4 break-words whitespace-pre-line max-w-xs">{{ $h->main_hasil_kuisioner->inputan}}</td>
                                 </td>
                             </tr>
 

@@ -31,5 +31,9 @@ class Kuisioner extends Model
     {
         return $this->belongsTo(\App\Models\MainKuisioner::class, 'id_main_kuisioner', 'id_main_kuisioner');
     }
+    public function main_hasil_kuisioner()
+    {
+        return $this->hasMany(\App\Models\Main_hasil_kuisioner::class, 'id_kuisioner', 'id_kuisioner');
+    }
     
 }

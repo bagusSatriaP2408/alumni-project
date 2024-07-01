@@ -19,7 +19,7 @@ class HasilKuisioner extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['id_hasil_kuisioner', 'nim', 'id_kuisioner', 'hasil_kuisioner',];
+    protected $fillable = ['id_hasil_kuisioner', 'nim', 'id_kuisioner', 'hasil_kuisioner','id_main_hasil_kuisioner'];
 
 
     /**
@@ -36,6 +36,10 @@ class HasilKuisioner extends Model
     public function lulusan()
     {
         return $this->belongsTo(\App\Models\User::class,'nim', 'nim');
+    }
+    public function main_hasil_kuisioner()
+    {
+        return $this->belongsTo(\App\Models\Main_hasil_kuisioner::class,'id_main_hasil_kuisioner', 'id_main_hasil_kuisioner');
     }
     
 }

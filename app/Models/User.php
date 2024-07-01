@@ -72,7 +72,8 @@ class User extends Authenticatable
 
     public function pekerjaan()
     {
-        return $this->hasOne(Pekerjaan::class);
+        return $this->hasMany(Pekerjaan::class);
     }
 
+    
 }

@@ -1,5 +1,4 @@
 <x-Admin-layout>
-
 <div class="container mx-auto px-4">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -22,15 +21,7 @@
                             <tr class="border-b">
                                 <td class="py-2 px-4">{{ $n->id_kuisioner }}</td>
                                 <td class="py-2 px-4">{{ ucwords($n->kuisioner) }}</td>
-                                <td class="py-2 px-4">                                
-                                <select name="" id="">
-                                <option value="">list Inputan</option>
-                                    @foreach ($n->main_hasil_kuisioner as $m)
-                                        <option value="{{ $m->id_main_hasil_kuisioner }}">{{ $m->inputan }}</option>
-                                    @endforeach
-                                </select>
-
-                                </td>
+                                <td class="py-2 px-4"><a href="{{route('admin.kuisioner.output_create',['id' =>  $n->id_kuisioner])}}" class="inline-flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out">+</a></td>
                             </tr>
                         @endforeach
                     </tbody>

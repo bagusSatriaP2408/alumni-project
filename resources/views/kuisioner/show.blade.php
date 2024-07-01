@@ -20,10 +20,16 @@
                                 @foreach ($kuisioner as $k)
                                     <tr class="border-b hover:bg-gray-100">
                                         <td class="py-2 px-4 ">
+                                            <input type="hidden" name="id_kuisioner[]" value="{{ $k->id_kuisioner }}">
                                             {{ $k->kuisioner }}
                                         </td>
-                                        <td class="py-2 px-4">
-                                            <input type="text" id="kuisioner_{{ $k->id_kuisioner }}" name="kuisioner[{{ $k->id_kuisioner }}]" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan jawaban Anda" required>
+                                        <td class="py-2 px-4 ">
+                                            <select name="jawaban[]" id="jawaban">
+                                                <option value="">Pilih Jawaban</option>
+                                                @foreach ($k->main_hasil_kuisioner as $m)
+                                                    <option value="{{ $m->id_main_hasil_kuisioner }}">{{ $m->inputan }}</option>
+                                                @endforeach
+                                            </select>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\HasilKuisioner;
+use App\Models\JenisPekerjaan;
 use App\Models\Kuisioner;
 use App\Models\MainKuisioner;
 use App\Models\Pekerjaan;
@@ -88,17 +89,6 @@ class DatabaseSeeder extends Seeder
             "kategori_id"=>1
         ]);
 
-        HasilKuisioner::create([
-            "nim"=>"220411100113",
-            "id_kuisioner"=>1,
-            "hasil_kuisioner"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi. Sed euismod, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi.",
-        ]);
-
-        HasilKuisioner::create([
-            "nim"=>"220411100113",
-            "id_kuisioner"=>2,
-            "hasil_kuisioner"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi.",
-        ]);
         
         // Pekerjaan::create([
         //     "id"=>"1",
@@ -110,7 +100,15 @@ class DatabaseSeeder extends Seeder
         //     "user_id"=>"1",
         //     "name"=>"enginerring di google"
         // ]);
-    
+        
+        JenisPekerjaan::create([
+            'id_jenis_pekerjaan'=>1,
+            'nama_pekerjaan'=>'Machine Learning Developer'
+        ]);
+        JenisPekerjaan::create([
+            'id_jenis_pekerjaan'=>2,
+            'nama_pekerjaan'=>'Fullstack Developer'
+        ]);
     }
 
 }

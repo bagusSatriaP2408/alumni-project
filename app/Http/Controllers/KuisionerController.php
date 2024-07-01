@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\KuisionerRequest;
 use App\Models\HasilKuisioner;
+use App\Models\Main_hasil_kuisioner;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -61,7 +62,7 @@ class KuisionerController extends Controller
      */
     public function show($id)
     {
-        $kuisioner = Kuisioner::where('id_main_kuisioner', $id)->get();
+        $kuisioner = Kuisioner::with('main_hasil_kuisioner')->where('id_main_kuisioner', $id)->get();
     if (!$kuisioner) {
         // Handle the case where the kuisioner is not found
         return redirect()->route('admin.kuisioner')->with('error', 'Kuisioner not found');
@@ -73,7 +74,7 @@ class KuisionerController extends Controller
     public function show_hasil($id)
     {
         // Ambil data hasil kuisioner beserta kuisioner dan user terkait menggunakan eager loading
-        $hasilKuisioner = HasilKuisioner::with(['kuisioner', 'lulusan'])
+        $hasilKuisioner = HasilKuisioner::with(['main_hasil_kuisioner', 'lulusan'])
             ->whereHas('kuisioner', function ($query) use ($id) {
                 $query->where('id_main_kuisioner', $id);
             })->get();       
@@ -85,12 +86,6 @@ class KuisionerController extends Controller
         // Return view dengan data dari ketiga tabel yang telah digabungkan
         return view('admin.kuisioner.hasil', compact('hasilKuisioner'));
     }
-    
-
-
-    
-    
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -135,9 +130,6 @@ class KuisionerController extends Controller
     // Redirect ke halaman index kuisioner atau lakukan sesuatu yang sesuai
     return redirect()->route('admin.kuisioner.edit', ['id' => $id])->with('success', 'Kuisioner updated successfully.');
 }
-
-
-
     public function destroy($id): RedirectResponse
     {
         // Temukan MainKuisioner berdasarkan $id
@@ -160,5 +152,51 @@ class KuisionerController extends Controller
         // Redirect ke halaman index kuisioner atau lakukan sesuatu yang sesuai
         return redirect()->route('admin.kuisioner')->with('success', 'Main Kuisioner and related Kuisioners and HasilKuisioners deleted successfully.');
     }
+    public function output($id)
+    {
+        $kuisioner = Kuisioner::where('id_main_kuisioner', $id)->get();
+    if (!$kuisioner) {
+        // Handle the case where the kuisioner is not found
+        return redirect()->route('admin.kuisioner')->with('error', 'Kuisioner not found');
+    }
+    // Return the view with the found kuisioner
+    return view('admin.kuisioner.output', compact('kuisioner'));
+    }
+    public function output_create($id)
+    {
+        $kuisioner = Kuisioner::where('id_kuisioner', $id)->first();
+    if (!$kuisioner) {
+        // Handle the case where the kuisioner is not found
+        return redirect()->route('admin.kuisioner')->with('error', 'Kuisioner not found');
+    }
+
+    // Return the view with the found kuisioner
+    return view('admin.kuisioner.output_create', compact('kuisioner'));
+    }
+    public function output_store(Request $request)
+    {
+        $request->validate([
+            'id_kuisioner'=>'required',
+            'output' => 'required|array|min:1',
+            'output.*' => 'required|string|max:255',
+        ]);   
+        // Buat entry baru di tabel MainKuisioner
+        // $mainKuisioner = main_hasil_kuisioner::create([
+        //     'subject' => $request->subject,
+        // ]);
     
+        // Ambil id_main_kuisioner yang baru saja dibuat
+        // $id_main_kuisioner = $mainKuisioner->id_main_kuisioner;
+    
+        // Simpan kuisioner yang terkait dengan MainKuisioner baru
+        foreach ($request->output as $item) {
+            Main_hasil_kuisioner::create([
+                'id_kuisioner' => $request->id_kuisioner,
+                'inputan' => $item
+            ]);
+        }
+    
+        // Redirect ke halaman index kuisioner atau lakukan sesuatu yang sesuai
+        return redirect()->route('admin.kuisioner')->with('success', 'Kuisioner created successfully.');
+    }
 }

@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\JenisPekerjaan;
 
 class ProfileController extends Controller
 {
@@ -19,8 +20,21 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $pekerjaan = $request->user()->pekerjaan;
+        $hasjob=False;
+        $index=False;
+        foreach ($pekerjaan as $item) {
+            if ($item->done==0) {
+                $hasjob = True;
+                $index = $item->id;
+            };
+        }
         return view('profile.edit', [
             'user' => $request->user(),
+            'jenis_pekerjaan' => JenisPekerjaan::all(),
+            'index'=>$index,
+            'hasjob'=>$hasjob,
+            'pekerjaan'=>$pekerjaan
         ]);
     }
 
@@ -91,20 +105,24 @@ class ProfileController extends Controller
 
     public function store_pekerjaan(Request $request): RedirectResponse
     {
+        // dd($request);
         $user = $request->user();
         $mulaiBekerja = $request->input('mulai_bekerja');
-        $selesaiBekerja = $request->input('selesai_bekerja');
+        // $selesaiBekerja = $request->input('selesai_bekerja');
 
-        if ($mulaiBekerja > $selesaiBekerja) {
-            return Redirect::route('profile.edit')->with('error', 'Selesai bekerja tidak boleh kurang dari mulai bekerja');
-        }
+        // if ($mulaiBekerja > $selesaiBekerja) {
+        //     return Redirect::route('profile.edit')->with('error', 'Selesai bekerja tidak boleh kurang dari mulai bekerja');
+        // }
 
         Pekerjaan::create([
             'user_id' => $user->id,
-            'nama_pekerjaan' => $request->input('nama_pekerjaan'),
+            // 'nama_pekerjaan' => $request->input('nama_pekerjaan'),
+            'nama_perusahaan' => $request->input('nama_perusahaan'),
+            'jenis_pekerjaan_id'=>$request->jenis_pekerjaan_id,
             'alamat_perusahaan' => $request->input('alamat_perusahaan'),
             'mulai_bekerja' => $mulaiBekerja,
-            'selesai_bekerja' => $selesaiBekerja,
+            // 'selesai_bekerja' => $selesaiBekerja,
+            'done'=>0
         ]);
 
         return Redirect::route('profile.edit')->with('status', 'pekerjaan-added');
@@ -113,26 +131,18 @@ class ProfileController extends Controller
     public function update_pekerjaan(Request $request): RedirectResponse
     {
         $user = $request->user();
-        $pekerjaan = Pekerjaan::where('user_id', $user->id)->first();
-        $mulaiBekerja = $request->input('mulai_bekerja');
+        $mulaiBekerja = $request->mulai_bekerja;
         $selesaiBekerja = $request->input('selesai_bekerja');
 
         if ($mulaiBekerja > $selesaiBekerja) {
             return Redirect::route('profile.edit')->with('error', 'Selesai bekerja tidak boleh kurang dari mulai bekerja');
         }
 
-        if ($pekerjaan) {
-            $pekerjaan->name = $request->input('name');
-            $pekerjaan->save();
-        } else {
-            Pekerjaan::create([
-                'user_id' => $user->id,
-                'nama_pekerjaan' => $request->input('nama_pekerjaan'),
-                'alamat_perusahaan' => $request->input('alamat_perusahaan'),
-                'mulai_bekerja' => $request->input('mulai_bekerja'),
-                'selesai_bekerja' => $request->input('selesai_bekerja'),
-            ]);
-        }
+        Pekerjaan::find($request->index)
+        ->update([
+            'selesai_bekerja'=>$selesaiBekerja,
+            'done'=>1
+        ]);
 
         return Redirect::route('profile.edit')->with('status', 'pekerjaan-updated');
     }

@@ -42,6 +42,7 @@
                                     <a href="{{ route('admin.kuisioner.hasil', ['id' => $m->id_main_kuisioner]) }}" class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out">Hasil</a>
                                 </td>
                                 <td class="py-2 px-4">
+                                    <a href="{{ route('admin.kuisioner.output', ['id' => $m->id_main_kuisioner]) }}" class="inline-flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out">Output</a>
                                     <a href="{{ route('admin.kuisioner.edit', ['id' => $m->id_main_kuisioner]) }}" class="inline-flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out">Edit</a>
                                     <form action="{{ route('admin.kuisioner.delete',['id' => $m->id_main_kuisioner])}}" method="POST" class="inline-block">
                                         @csrf
