@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\HasilKuisioner;
+use App\Models\JenisPekerjaan;
 use App\Models\Kuisioner;
 use App\Models\MainKuisioner;
 use App\Models\Pekerjaan;
@@ -89,7 +90,15 @@ class DatabaseSeeder extends Seeder
         //     "user_id"=>"1",
         //     "name"=>"enginerring di google"
         // ]);
-    
+        
+        JenisPekerjaan::create([
+            'id_jenis_pekerjaan'=>1,
+            'nama_pekerjaan'=>'Machine Learning Developer'
+        ]);
+        JenisPekerjaan::create([
+            'id_jenis_pekerjaan'=>2,
+            'nama_pekerjaan'=>'Fullstack Developer'
+        ]);
     }
 
 }
