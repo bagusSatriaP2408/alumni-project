@@ -6,7 +6,7 @@
             {{ __('Daftar Lulusan') }}
         </h2>
     </x-slot>
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4 max-w-7xl mx-auto">
         <div class="flex justify-center">
             <div class="w-full">
                 <div class="bg-white shadow-md rounded my-6">
@@ -32,20 +32,24 @@
                                     <td class="py-2 px-4 text-center">{{ $u->tahun_masuk }}</td>
                                     <td class="py-2 px-4 text-center">{{ $u->tahun_lulus }}</td>
                                     <td class="py-2 px-4 text-center">
-                                        <form action="{{route('admin.lulusan.setujui')}}" method="POST" class="inline-block">
-                                            @csrf
-                                            <input type="hidden" name="user_id" value="{{ $u->id }}">
-                                            <button type="submit" class="bg-blue-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
-                                                Setujui
-                                            </button>
-                                        </form>
-                                        <form action="{{route('admin.lulusan.tolak')}}" method="POST" class="inline-block">
-                                            @csrf
-                                            <input type="hidden" name="user_id" value="{{ $u->id }}">
-                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
-                                                Tolak
-                                            </button>
-                                        </form>
+                                        @if(!$u->approved) <!-- Check if the user is not approved -->
+                                            <form action="{{route('admin.lulusan.setujui')}}" method="POST" class="inline-block">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{ $u->id }}">
+                                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded">
+                                                    Setujui
+                                                </button>
+                                            </form>
+                                            <form action="{{route('admin.lulusan.tolak')}}" method="POST" class="inline-block">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{ $u->id }}">
+                                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded">
+                                                    Tolak
+                                                </button>
+                                            </form>
+                                        @else
+                                            <button type="button" class="bg-green-500 text-white font-bold py-2 px-4 rounded" disabled>Telah Disetujui</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

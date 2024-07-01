@@ -1,12 +1,8 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
+            {{ __('Profil Saya') }}
         </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
-        </p>
     </header>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
@@ -21,9 +17,12 @@
             @if (!$user->gambar == null)
                 <div class="mb-4 relative">
                     <label for="gambar" class="relative">
-                        <img src="{{ asset('storage/' . $user->gambar) }}" alt="Profile Picture" class="max-w-64 h-auto rounded-full cursor-pointer">
+                        <img src="{{ asset('storage/' . $user->gambar) }}" alt="Profile Picture" class="w-64 h-64 object-cover rounded-full cursor-pointer">
                         <span class="absolute inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 text-white text-sm font-medium rounded-full opacity-0 transition-opacity duration-300 hover:opacity-100 cursor-pointer max-w-64">
-                            Ubah
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M14.293 3.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-5 1a1 1 0 0 1-1.227-1.228l1-5a1 1 0 0 1 .242-.39l9-9zM13 5L6 12l-1 5 5-1 7-7-4-4z" clip-rule="evenodd" />
+                            </svg> 
+                            ubah gambar
                         </span>
                     </label>
                 </div>
@@ -32,7 +31,10 @@
                     <label for="gambar" class="relative">
                         <img src="{{ asset('storage/images/posts/profile-none.jpeg') }}" alt="Profile Picture" class="max-w-64 h-auto rounded-full cursor-pointer">
                         <span class="absolute inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 text-white text-sm font-medium rounded-full opacity-0 transition-opacity duration-300 hover:opacity-100 cursor-pointer max-w-64">
-                            Ubah
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M14.293 3.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-5 1a1 1 0 0 1-1.227-1.228l1-5a1 1 0 0 1 .242-.39l9-9zM13 5L6 12l-1 5 5-1 7-7-4-4z" clip-rule="evenodd" />
+                            </svg> 
+                            ubah gambar
                         </span>
                     </label>
                 </div>
@@ -97,7 +99,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <x-primary-button>{{ __('Simpan') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p

@@ -4,7 +4,7 @@
             {{ __('Postingan Saya') }}
         </h2>
     </x-slot>
-    <div class="py-12">
+    <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 gap-6">
                 @forelse ($posts as $post)

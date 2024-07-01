@@ -28,26 +28,22 @@ public function store(Request $request): RedirectResponse
         $credentials = $request->only('email', 'password');
 
         if (auth()->guard('web-admin')->attempt($credentials)) {
-            // If authentication is successful for web-admin, store user data in session
             $request->session()->regenerate();
             $request->session()->put('email', auth()->guard('web-admin')->user()->email);
             return redirect()->route('admin.dashboard');
         }  elseif (auth()->guard('web')->attempt($credentials)) {
-            // Check if the authenticated user is approved
             $user = auth()->guard('web')->user();
             if ($user->approved) {
                 $request->session()->regenerate();
                 $request->session()->put('email', $user->email);
                 return redirect()->route('home');
             } else {
-                // If the user is not approved, log them out and show an error
                 auth()->guard('web')->logout();
                 return back()->withErrors([
                     'email' => 'Akun Anda belum disetujui.'
                 ])->onlyInput('email');
             }
         } else {
-            // If authentication fails
             return back()->withErrors([
                 'email' => 'Login Gagal'
             ])->onlyInput('email');

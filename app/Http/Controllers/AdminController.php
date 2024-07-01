@@ -29,13 +29,13 @@ class AdminController extends Controller
      */
     public function show(Request $request): View
     {
-        // Ambil data user yang memiliki approved = 0 dan menggunakan pagination
-        $User = User::where('approved', 0)->paginate();
-    
+        // Ambil semua data user tanpa memperhatikan status approved dan menggunakan pagination
+        $User = User::paginate();
+
         // Mengatur kembali nomor halaman (pagination) dengan menggunakan 'page' dari input request
         $User->appends($request->except('page'));
-    
-        // Mengembalikan view admin.lulusan dengan data user yang sudah difilter dan pagination
+
+        // Mengembalikan view admin.lulusan dengan semua data user dan pagination
         return view('admin.lulusan', compact('User'))
             ->with('i', ($request->input('page', 1) - 1) * $User->perPage());
     }

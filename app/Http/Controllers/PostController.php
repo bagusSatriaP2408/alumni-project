@@ -28,7 +28,7 @@ class PostController extends Controller
     }
     public function show_admin(Request $request): View
     {
-        $posts = Post::with('user')->get();
+        $posts = Post::with('user')->latest()->get();
 
         return view('admin.postingan', compact('posts'));
     }

@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         HasilKuisioner::create([
-            "nim"=>"200411100113",
+            "nim"=>"220411100113",
             "id_kuisioner"=>2,
             "hasil_kuisioner"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi.",
         ]);

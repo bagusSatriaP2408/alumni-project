@@ -1,11 +1,11 @@
 <x-app-layout>
 
-<div class="container mx-auto px-4">
-    <div class="flex justify-center items-center py-4">
-        <h2 class="text-2xl font-semibold">Kuisioner</h2>
+<div class="container mx-auto">
+    <div class="flex justify-center items-center py-5">
+        <h1 class="text-3xl font-semibold">Daftar Kuisioner</h1>
     </div>
     <div class="flex justify-center">
-        <div class="w-full lg:w-2/3 xl:w-1/2">
+        <div class="w-10/12 px-12">
             <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
                 @if ($main_kuisioner)
                 <table class="min-w-max w-full table-auto">
@@ -27,7 +27,7 @@
                     </tbody>
                 </table>
                 @else
-                <p class="text-center py-4">Belum ada kuisioner yang diisi.</p>
+                <p class="text-center py-4">Belum ada kuisioner untuk saat ini</p>
                 @endif
             </div>
         </div>

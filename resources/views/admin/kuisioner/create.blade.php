@@ -4,7 +4,7 @@
             {{ __('Buat Kuisioner Baru') }}
         </h2>
     </x-slot>
-    <div class="container mx-auto px-4">
+    <div class="container mx-auto px-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-center">
             <div class="w-full max-wt-2xl">
                 <div class="bg-white shadow-md rounded my-6 p-6">

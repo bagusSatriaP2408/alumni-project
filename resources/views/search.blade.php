@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="search p-5">
         <div class="text_search text-center mb-5">
-            <h1 class="text-3xl font-semibold">Search</h1>
+            <h1 class="text-3xl font-semibold">Cari Lulusan</h1>
         </div>
         <div class="w-full md:w-2/3 lg:w-1/2 xl:w-1/2 px-3 mx-auto"> <!-- Menyesuaikan lebar dan posisi tengah -->
             <form class="flex" action="{{ route('search.search') }}" method="post">
@@ -15,15 +15,15 @@
                         type="search" placeholder="Prodi" aria-label="Search">
                     <button type="submit"
                         class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-                        Search</button>
+                        Cari</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="result bg-gray-100 p-5 mt-5">
+    <div class="result bg-gray-100 px-5 mt-5">
 
-        <table class="table-auto w-full bg-white shadow-md rounded my-6 overflow-x-auto">
+        <table class="table-auto w-10/12 bg-white shadow-md rounded my-6 overflow-x-auto mx-auto">
             <thead class="bg-gray-200">
                 <tr>
                     <th class="py-2 px-4 border-b text-left">No</th>
