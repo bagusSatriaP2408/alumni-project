@@ -14,30 +14,37 @@ class UserKuisionerController extends Controller
     {
         // Ambil ID pengguna saat ini, misalnya:
         $userId = auth()->user()->nim;
-    
-        // Cek apakah ada entri kuisioner yang sudah diisi oleh pengguna
-        $hasilkuisioner = HasilKuisioner::where('nim', $userId)->first();
-        
-        // Jika $hasilkuisioner tidak null (artinya sudah ada isian kuisioner), 
-        // maka tidak perlu menyertakan $hasilkuisioner saat memanggil view
-        if ($hasilkuisioner) {
+        $userId = auth()->user()->nim;
+        $hasil = Kuisioner::with(['mainKuisioner', 'hasilKuisioner'])
+                        ->whereHas('hasilKuisioner', function ($query) use ($userId) {
+                            $query->where('nim','!=', $userId);
+                        })
+                        ->get();
+        $c_hasil1=Kuisioner::count();
+        $c_hasil2=count($hasil);                   
+        if ($c_hasil1==$c_hasil2) {
             $main_kuisioner = null;
             return view('kuisioner.index',compact('main_kuisioner'));
         }else{
-            $main_kuisioner = MainKuisioner::all();
+            $main_kuisioner=MainKuisioner::with('kuisioner.hasilkuisioner')->whereDoesntHave('kuisioner.hasilkuisioner',function ($query) use ($userId) {
+                $query->where('nim', $userId);
+            })
+            ->get();
+            // $unique_main_kuisioner_id = $main_kuisioner->pluck('mainKuisioner')->all();
+            // dd($unique_main_kuisioner_id);
             return view('kuisioner.index', compact('main_kuisioner'));
+            
         }
         // Jika belum ada isian kuisioner, sertakan $hasilkuisioner saat memanggil view
     }
 
-    public function show($id)
+    public function show2($id)
     {
         $kuisioner = Kuisioner::where('id_main_kuisioner', $id)->get();
         // Cek jika kuisioner tidak ditemukan
         if ($kuisioner->isEmpty()) {
             return redirect()->route('kuisioner')->with('error', 'Kuisioner not found');
         }
-    
         // Ambil id_kuisioner dari data kuisioner yang ditemukan
         $kuisionerIds = $kuisioner->pluck('id_kuisioner')->toArray();
     
@@ -47,33 +54,38 @@ class UserKuisionerController extends Controller
         // Return view dengan data dari kedua tabel
         return view('kuisioner.show', compact('kuisioner', 'hasilKuisioner'));
     }
+    public function show($id)
+    {
+        $kuisioner = Kuisioner::with(['main_hasil_kuisioner','mainKuisioner'])->where('id_main_kuisioner', $id)->get();
+        // Cek jika kuisioner tidak ditemukan
+        if ($kuisioner->isEmpty()) {
+            return redirect()->route('kuisioner')->with('error', 'Kuisioner not found');
+        }
+        return view('kuisioner.show', compact('kuisioner'));
+    }
     public function store(Request $request)
     {
-        
-        // Validasi request sesuai kebutuhan
+        // Validate the request
         $request->validate([
-            // Sesuaikan dengan field yang dibutuhkan
-            'kuisioner' => 'required|array', // Misalnya 'kuisioner' adalah array dari inputan kuisioner
+            'id_kuisioner' => 'required|array',
+            'jawaban' => 'required|array',
         ]);
-        
-        // Ambil user yang sedang login
-        $user = $request->user(); // Menggunakan user yang sedang authenticated
-        // Loop through kuisioner inputs and save to hasil_kuisioner
-        foreach ($request->kuisioner as $kuisionerId => $response) {
-            // Cari kuisioner berdasarkan ID
-            $kuisioner = Kuisioner::findOrFail($kuisionerId);
     
-            // Simpan data ke hasil_kuisioner
+        // Get the authenticated user
+        $user = $request->user();
+    
+        // Loop through submitted data and save to HasilKuisioner
+        foreach ($request->id_kuisioner as $key => $id_kuisioner) {
             HasilKuisioner::create([
                 'nim' => $user->nim,
-                'id_kuisioner' => $kuisioner->id_kuisioner,
-                'hasil_kuisioner' => $response,
-                // Sesuaikan dengan field lain yang dibutuhkan
+                'id_kuisioner' => $id_kuisioner,
+                'id_main_hasil_kuisioner' => $request->jawaban[$key],
+                // Add other fields as needed
             ]);
         }
     
-        // Redirect atau berikan respons sesuai kebutuhan
+        // Redirect or respond as needed
         return redirect()->route('kuisioner.index');
-    }
+    }    
 
 }

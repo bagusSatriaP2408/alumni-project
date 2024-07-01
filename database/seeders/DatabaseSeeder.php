@@ -78,17 +78,6 @@ class DatabaseSeeder extends Seeder
             "deskripsi"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi. Sed euismod, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi.",
         ]);
 
-        HasilKuisioner::create([
-            "nim"=>"220411100113",
-            "id_kuisioner"=>1,
-            "hasil_kuisioner"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi. Sed euismod, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi.",
-        ]);
-
-        HasilKuisioner::create([
-            "nim"=>"220411100113",
-            "id_kuisioner"=>2,
-            "hasil_kuisioner"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, nunc id aliquet ultricies, nisl nisl tincidunt nunc, ac ultrices nunc nunc id nunc. Sed id est id nunc lacinia tincidunt. Nulla facilisi.",
-        ]);
         
         // Pekerjaan::create([
         //     "id"=>"1",
