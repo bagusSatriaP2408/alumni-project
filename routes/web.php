@@ -47,6 +47,8 @@ Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function
     Route::get('/kuisioner/output/{id}', [KuisionerController::class, 'output'])->name('admin.kuisioner.output');
     Route::get('/kuisioner/output/create/{id}', [KuisionerController::class, 'output_create'])->name('admin.kuisioner.output_create');
     Route::post('/kuisioner/output/create/', [KuisionerController::class, 'output_store'])->name('admin.kuisioner.output.store');
+    Route::get('/kuisioner/output/edit/{id}', [KuisionerController::class, 'output_edit'])->name('admin.kuisioner.output_edit');
+    Route::post('/kuisioner/output/edit/{id}', [KuisionerController::class, 'output_edit_store'])->name('admin.kuisioner.output_edit.store');
     Route::get('/postingan', [PostController::class, 'show_admin'])->name('admin.postingan');
     Route::get('/postingan/{slug}', [PostController::class, 'post_admin_detail'])->name('admin.postingan.show');
     Route::post('/postingan/{post}', [PostController::class, 'destroy_admin'])->name('admin.postingan.delete');

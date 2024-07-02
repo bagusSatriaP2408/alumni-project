@@ -199,4 +199,44 @@ class KuisionerController extends Controller
         // Redirect ke halaman index kuisioner atau lakukan sesuatu yang sesuai
         return redirect()->route('admin.kuisioner')->with('success', 'Kuisioner created successfully.');
     }
+    public function output_edit($id)
+    {
+        // Ambil data Kuisioner beserta data MainKuisioner yang terkait
+        $output = Kuisioner::with('main_hasil_kuisioner')->find($id);
+        // Jika $output tidak ditemukan, bisa ditangani sesuai kebutuhan
+        if (!$output) {
+            // Lakukan redirect atau tindakan lain
+            return redirect()->back()->with('error', 'output not found.');
+        };
+        return view('admin.kuisioner.output_edit', compact('output'));
+    }
+    public function output_edit_store(Request $request, $id)
+    {
+        // Validate input
+        $request->validate([
+            'output' => 'required|array|min:1',
+            'output.*' => 'required|string|max:255',
+        ]);
+    
+        // Get all records that match the 'kuisioner' id
+        $records = Main_hasil_kuisioner::where('id_kuisioner', $id)->get();
+    
+        // Ensure there are enough records to update
+        if ($records->count() < count($request->output)) {
+            return redirect()->route('admin.kuisioner.edit', ['id' => $id])->with('error', 'Not enough records to update.');
+        }
+    
+        // Loop through the output array and update each corresponding record
+        foreach ($request->output as $index => $item) {
+            if (isset($records[$index])) {
+                $records[$index]->update(['inputan' => $item]);
+            }
+        }
+    
+        // Redirect to the edit questionnaire page with a success message
+        return redirect()->route('admin.kuisioner.edit', ['id' => $id])->with('success', 'Kuisioner updated successfully.');
+    }
+    
+    
+    
 }
