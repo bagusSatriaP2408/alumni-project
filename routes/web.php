@@ -72,6 +72,11 @@ Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function
     Route::resource('tracking', Controllers\TrackingController::class);
     Route::get('tracking/kuisioner/{id}', [Controllers\TrackingController::class, 'kuisioner'])->name('tracking.kuisioner');
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy_admin'])->name('logout');
+
+
+
+    // Tracking Pekerjaan
+    Route::get('tracking/pekerjaan/{id}', [Controllers\TrackingController::class, 'pekerjaan'])->name('tracking.pekerjaan');
 });
 
 Route::get('posts/{post}', [Controllers\PostController::class, 'show'])->name('posts.show');

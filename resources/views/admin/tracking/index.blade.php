@@ -1,3 +1,4 @@
+
 <x-Admin-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center max-w-7xl mx-auto px-4">
@@ -35,15 +36,27 @@
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <th class="w-1/4 px-4 py-2">Nama Pekerjaan</th>
-                            <th class="w-1/4 px-4 py-2">Status</th>
-                            <th class="w-1/4 px-4 py-2">Tanggal Mulai</th>
-                            <th class="w-1/4 px-4 py-2">Tanggal Selesai</th>
+                            <td class="w-1/4 px-4 py-2">Nama Pekerjaan</td>
+                            <td class="w-1/4 px-4 py-2">Jumlah Alumni</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Data Pekerjaan -->
-
+                        @foreach ($jenisPekerjaan as $jp)
+                            <tr>
+                                <td><a href="{{route('tracking.pekerjaan',['id'=>$jp->id_jenis_pekerjaan])}}">{{ $jp->nama_pekerjaan }}</a></td>
+                                @php
+                                    $count=0
+                                @endphp
+                                @foreach ($pekerjaan as $jum)
+                                    @if ($jp->id_jenis_pekerjaan == $jum->jenis_pekerjaan_id)
+                                        @php
+                                            $count++
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                <td>{{ $count }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
