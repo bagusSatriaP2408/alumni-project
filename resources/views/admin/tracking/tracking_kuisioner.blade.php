@@ -22,13 +22,25 @@
                     </thead>
                     <tbody>
                         <!-- Data Kuisioner -->
-                        @foreach($tracking as $result)
-                            <tr>
-                                <td class="border px-4 py-2">{{ $result->kuisioner }}</td>
-                                <td class="border px-4 py-2">{{ $result->responden }}</td>
-                                <td class="border px-4 py-2">{{ $result->hasil }}</td>
-                            </tr>
-                        @endforeach
+                         @foreach ( $kuisioner as $k )
+                         <tr>
+                           
+                            <td class="border px-4 py-2">{{ $k->kuisioner }}</td>
+                            <td class="border px-4 py-2">{{ $count_respondan }}</td>
+                            
+                            <td class="border px-4 py-2">
+                            @foreach ( $tracking as $t )
+                            @if ($k->id_kuisioner==$t->id_kuisioner)
+                                <p>{{$t->inputan}}={{$t->hasil_kuisioner->count()}}</p>
+                            @endif
+                                
+                            @endforeach
+                            </td>
+                            
+                         @endforeach
+                        
+                         </tr>
+                        
                     </tbody>
                 </table>
             </div>
