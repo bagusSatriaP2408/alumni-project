@@ -23,7 +23,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($temp as $item)
                             <tr class="hover:bg-gray-100">
-                                <td class="py-4 px-6">{{ $item->user->name ?? 'Nama tidak tersedia' }}</td>
+                                <td class="py-4 px-6">{{ \App\Models\User::find($item->user_id)->name }}</td>
                                 <td class="py-4 px-6">{{ $item->nama_perusahaan }}</td>
                                 <td class="py-4 px-6">{{ $item->alamat_perusahaan }}</td>
                                 <td class="py-4 px-6">{{ $item->mulai_bekerja }}</td>

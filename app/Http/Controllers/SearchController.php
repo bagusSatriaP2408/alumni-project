@@ -31,17 +31,14 @@ class SearchController extends Controller
         $pekerjaan = $request->input('pekerjaan');
         
         $query = User::join('prodi', 'users.prodi', '=', 'prodi.id')
-            ->join('pekerjaan', 'users.id', '=', 'pekerjaan.user_id')
-            ->select('users.*', 'prodi.name as prodi')
-            ->distinct()
-            ->latest();
+            ->select('users.*', 'prodi.name as prodi');
     
         if (!empty($search)) {
             $query->where('users.name', 'like', '%' . $search . '%');
         }
     
         if (!empty($tahun_masuk)) {
-            $query->where('users.tahun_masuk', $tahun_masuk);
+            $query->where('users.tahun_masuk', 'like', '%' . $tahun_masuk . '%');
         }
     
         if (!empty($prodi)) {
@@ -49,6 +46,11 @@ class SearchController extends Controller
         }
 
         if (!empty($pekerjaan)) {
+            $query = User::join('prodi', 'users.prodi', '=', 'prodi.id')
+            ->join('pekerjaan', 'users.id', '=', 'pekerjaan.user_id')
+            ->select('users.*', 'prodi.name as prodi')
+            ->distinct()
+            ->latest();
             $query->where('pekerjaan.jenis_pekerjaan_id', 'like', '%' . $pekerjaan . '%');
         }
 
