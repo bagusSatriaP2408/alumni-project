@@ -30,6 +30,9 @@
                     <x-nav-link :href="route('jenis-pekerjaan.index')" :active="request()->routeIs('jenis-pekerjaan.index')">
                         {{ __('Jenis Pekerjaan') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('tracking.index')" :active="request()->routeIs('tracking.index')">
+                        {{ __('Tracking') }}
+                    </x-nav-link>
                 </div>
             </div>
             

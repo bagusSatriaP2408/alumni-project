@@ -52,7 +52,6 @@ Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function
     Route::get('/postingan', [PostController::class, 'show_admin'])->name('admin.postingan');
     Route::get('/postingan/{slug}', [PostController::class, 'post_admin_detail'])->name('admin.postingan.show');
     Route::post('/postingan/{post}', [PostController::class, 'destroy_admin'])->name('admin.postingan.delete');
-
     Route::get('kategori-post', [Controllers\PostController::class, 'index_kategori'])->name('kategori-post.index');
     Route::get('kategori-post/create', [Controllers\PostController::class, 'create_kategori'])->name('kategori-post.create');
     Route::post('kategori-post', [Controllers\PostController::class, 'store_kategori'])->name('kategori-post.store');
@@ -70,7 +69,8 @@ Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function
     // Route::delete('jenis-pekerjaan/{id}', [Controllers\PostController::class, 'destroy_jenis-pekerjaan'])->name('jenis-pekerjaan.destroy');
 
     Route::resource('jenis-pekerjaan', Controllers\JenisPekerjaanController::class);
-
+    Route::resource('tracking', Controllers\TrackingController::class);
+    Route::get('tracking/kuisioner/{id}', [Controllers\TrackingController::class, 'kuisioner'])->name('tracking.kuisioner');
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy_admin'])->name('logout');
 });
 
