@@ -12,12 +12,11 @@ class SearchController extends Controller
 {
     public function index()
     {
+
         $users = User::join('prodi', 'users.prodi', '=', 'prodi.id')
-             ->join('pekerjaan', 'users.id', '=', 'pekerjaan.user_id')
-             ->select('users.*', 'prodi.name as prodi')
-             ->distinct()
-             ->latest()
-             ->get();
+                ->select('users.*', 'prodi.name as prodi')
+                ->get();
+        // dd($users);
         $prodis = Prodi::all(); 
         $jenisPekerjaan = JenisPekerjaan::all(); 
                      
