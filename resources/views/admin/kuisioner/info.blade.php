@@ -14,17 +14,17 @@
                         <tr>
                             <th class="py-2 px-4 border-b">No</th>
                             <th class="py-2 px-4 border-b">Subject</th>
-                            <th class="py-2 px-4 border-b">Output</th>
+                            <th class="py-2 px-4 border-b">Opsi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($kuisioner as $n)
                             <tr class="border-b">
-                                <td class="py-2 px-4">{{ $n->id_kuisioner }}</td>
+                                <td class="py-2 px-4">{{ $loop->iteration }}</td>
                                 <td class="py-2 px-4">{{ ucwords($n->kuisioner) }}</td>
                                 <td class="py-2 px-4">                                
-                                <select name="" id="">
-                                <option value="">list Inputan</option>
+                                <select name="" id="" class="py-2 border rounded">
+                                    <option value="">Opsi</option>
                                     @foreach ($n->main_hasil_kuisioner as $m)
                                         <option value="{{ $m->id_main_hasil_kuisioner }}">{{ $m->inputan }}</option>
                                     @endforeach

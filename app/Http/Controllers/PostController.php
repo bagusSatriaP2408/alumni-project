@@ -17,15 +17,18 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::query()
-            ->latest()
-            ->get();
+        $posts = Post::where(function ($query) use ($request) {
+            // Filter berdasarkan kategori jika parameter 'category' ada
+            if ($request->has('category') && $request->category != '') {
+                $query->where('kategori_id', $request->category);
+            }
+        })->get();
 
-        return view('posts.index', [
-            'posts' => $posts,
-        ]);
+        $categories = PostCategory::all(); // Pastikan Anda mengambil semua kategori untuk dropdown
+
+        return view('posts.index', compact('posts', 'categories'));
     }
 
     public function index_kategori()
@@ -36,9 +39,13 @@ class PostController extends Controller
 
     public function show_admin(Request $request): View
     {
-        $posts = Post::with('user')->latest()->get();
-
-        return view('admin.postingan', compact('posts'));
+        $posts = Post::where(function ($query) use ($request) {
+            if ($request->has('category') && $request->category != '') {
+                $query->where('kategori_id', $request->category);
+            }
+        })->with('user')->latest()->get();
+        $categories = PostCategory::all(); // Pastikan ini ada untuk mengisi dropdown
+        return view('admin.postingan', compact('posts', 'categories'));
     }
 
         

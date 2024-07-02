@@ -24,7 +24,7 @@
                                             {{ $k->kuisioner }}
                                         </td>
                                         <td class="py-2 px-4 ">
-                                            <select name="jawaban[]" id="jawaban">
+                                            <select name="jawaban[]" id="jawaban" class="py-2 border rounded">
                                                 <option value="">Pilih Jawaban</option>
                                                 @foreach ($k->main_hasil_kuisioner as $m)
                                                     <option value="{{ $m->id_main_hasil_kuisioner }}">{{ $m->inputan }}</option>

@@ -9,8 +9,8 @@ $nowJobless = True
 @endphp
 
 <x-app-layout>
-    <div class="max-w-4xl mx-auto py-12 sm:px-6 lg:px-8">
-        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="max-w-4xl mx-auto pt-12 pb-5 sm:px-6 lg:px-8 bg-white shadow overflow-hidden sm:rounded-lg my-6">
+        <div>
             <div class="px-4 py-5 sm:px-6">
                 <h2 class="text-lg leading-6 font-medium text-gray-900">
                     Informasi Profil
@@ -62,16 +62,15 @@ $nowJobless = True
         </div>
     </div>
 
-<section>
+<div class="max-w-4xl mx-auto py-12 bg-white shadow overflow-hidden sm:rounded-lg sm:px-6 lg:px-8">
     @if ($pekerjaan->count()==0 || $adaRiwayat==False)
-    <h1 class="text-center">Tidak Mempunyai riwayat pekerjaan yang selesai</h1>
+        <h3 class="text-center text-lg font-medium text-gray-500">Tidak Mempunyai Riwayat Pekerjaan Yang Selesai</h3>
     @else
-    <h3 class="text-center">riwayat pekerjaan yang selesai</h3>
-    <div class="flex items-center justify-center min-h-[450px]">
+    <h3 class="text-center text-lg font-medium text-gray-500 mb-6">Riwayat Pekerjaan Yang Selesai</h3>
+    <div class="flex items-center justify-center">
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="py-3 px-6">Nama Pekerjaan</th>
                     <th scope="col" class="py-3 px-6">Nama Perusahaan</th>
@@ -84,7 +83,7 @@ $nowJobless = True
 
                 @foreach ($pekerjaan as $item)
                 @if ($item->done==1) 
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <tr class="bg-white border-b">
                         <td class="py-4 px-6">{{ App\Models\JenisPekerjaan::find($item->jenis_pekerjaan_id)->nama_pekerjaan }}</td>
                         <td class="py-4 px-6">{{ $item->nama_perusahaan }}</td>
                         <td class="py-4 px-6">{{ $item->alamat_perusahaan }}</td>
@@ -92,12 +91,12 @@ $nowJobless = True
                         <td class="py-4 px-6">{{ $item->selesai_bekerja }}</td>
                     </tr>
                 @else
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <tr class="bg-white border-b">
                         <td class="py-4 px-6">{{ App\Models\JenisPekerjaan::find($item->jenis_pekerjaan_id)->nama_pekerjaan }}</td>
                         <td class="py-4 px-6">{{ $item->nama_perusahaan }}</td>
                         <td class="py-4 px-6">{{ $item->alamat_perusahaan }}</td>
                         <td class="py-4 px-6">{{ $item->mulai_bekerja }}</td>
-                        <td class="py-4 px-6">Sekarang</td>
+                        <td class="py-4 px-6">Ongoing</td>
                     </tr>
                     @php
                         $nowJobless=False
@@ -113,7 +112,10 @@ $nowJobless = True
     @endif
 
     @if ($nowJobless)
-    <h1 class="text-center">Sekarang tidak bekerja</h1>
+        <div class="max-w-4xl mx-auto py-12 bg-white shadow overflow-hidden sm:rounded-lg my-5">
+            <h3 class="text-center text-lg font-medium text-gray-500 mb-6">Pekerjaan Saat Ini</h3>
+            <h3 class="text-center mt-4">Sekarang tidak bekerja</h3>
+        </div>
     @endif
-</section>
+</div>
 </x-app-layout>

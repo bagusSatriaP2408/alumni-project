@@ -14,14 +14,13 @@ foreach ($pekerjaan as $item) {
         </h2>
     </header>
     @if ($pekerjaan->count()==0 || $adaRiwayat==False)
-    <h3>Tidak Mempunyai riwayat pekerjaan yang selesai</h3>
+        <h3>Tidak Mempunyai riwayat pekerjaan yang selesai</h3>
     @else
 
-    <div class="flex items-center justify-center min-h-[450px]">
+    <div class="flex items-center justify-center my-6">
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="py-3 px-6">Nama Pekerjaan</th>
                     <th scope="col" class="py-3 px-6">Nama Perusahaan</th>
@@ -34,7 +33,7 @@ foreach ($pekerjaan as $item) {
 
                 @foreach ($pekerjaan as $item)
                 @if ($item->done==1) 
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <tr class="bg-white border-b">
                         <td class="py-4 px-6">{{ App\Models\JenisPekerjaan::find($item->jenis_pekerjaan_id)->nama_pekerjaan }}</td>
                         <td class="py-4 px-6">{{ $item->nama_perusahaan }}</td>
                         <td class="py-4 px-6">{{ $item->alamat_perusahaan }}</td>
@@ -46,7 +45,6 @@ foreach ($pekerjaan as $item) {
                 
                 </tbody>
             </table>
-            </div>
         </div>
     </div>
     @endif

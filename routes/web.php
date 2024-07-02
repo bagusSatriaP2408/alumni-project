@@ -54,10 +54,20 @@ Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function
     Route::get('kategori-post', [Controllers\PostController::class, 'index_kategori'])->name('kategori-post.index');
     Route::get('kategori-post/create', [Controllers\PostController::class, 'create_kategori'])->name('kategori-post.create');
     Route::post('kategori-post', [Controllers\PostController::class, 'store_kategori'])->name('kategori-post.store');
-    Route::get('kategori-post/{id}', [Controllers\PostController::class, 'show'])->name('kategori-post.show');
+    // Route::get('kategori-post/{id}', [Controllers\PostController::class, 'show'])->name('kategori-post.show');
     Route::get('kategori-post/{id}/edit', [Controllers\PostController::class, 'edit_kategori'])->name('kategori-post.edit');
     Route::put('kategori-post/{id}', [Controllers\PostController::class, 'update_kategori'])->name('kategori-post.update');
     Route::delete('kategori-post/{id}', [Controllers\PostController::class, 'destroy_kategori'])->name('kategori-post.destroy');
+
+    // Route::get('jenis-pekerjaan', [Controllers\PostController::class, 'index_jenis-pekerjaan'])->name('jenis-pekerjaan.index');
+    // Route::get('jenis-pekerjaan/create', [Controllers\PostController::class, 'create_jenis-pekerjaan'])->name('jenis-pekerjaan.create');
+    // Route::post('jenis-pekerjaan', [Controllers\PostController::class, 'store_jenis-pekerjaan'])->name('jenis-pekerjaan.store');
+    // // Route::get('jenis-pekerjaan/{id}', [Controllers\PostController::class, 'show'])->name('jenis-pekerjaan.show');
+    // Route::get('jenis-pekerjaan/{id}/edit', [Controllers\PostController::class, 'edit_jenis-pekerjaan'])->name('jenis-pekerjaan.edit');
+    // Route::put('jenis-pekerjaan/{id}', [Controllers\PostController::class, 'update_jenis-pekerjaan'])->name('jenis-pekerjaan.update');
+    // Route::delete('jenis-pekerjaan/{id}', [Controllers\PostController::class, 'destroy_jenis-pekerjaan'])->name('jenis-pekerjaan.destroy');
+
+    Route::resource('jenis-pekerjaan', Controllers\JenisPekerjaanController::class);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy_admin'])->name('logout');
 });

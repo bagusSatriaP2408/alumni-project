@@ -27,8 +27,10 @@
             <thead class="bg-gray-200">
                 <tr>
                     <th class="py-2 px-4 border-b text-left">No</th>
-                    <th class="py-2 px-4 border-b text-left">nama</th>
+                    <th class="py-2 px-4 border-b text-left">Nama</th>
+                    <th class="py-2 px-4 border-b text-left">Email</th>
                     <th class="py-2 px-4 border-b text-left">Tahun Masuk</th>
+                    <th class="py-2 px-4 border-b text-left">Tahun Lulus</th>
                     <th class="py-2 px-4 border-b text-left">Prodi</th>
                 </tr>
             </thead>
@@ -39,7 +41,9 @@
                     <td class="py-2 px-4 border-b">
                         <a href="{{route('profile.show',$user->id)}}">{{ $user->name }}</a>
                     </td>
+                    <td class="py-2 px-4 border-b">{{ $user->email }}</td>
                     <td class="py-2 px-4 border-b">{{ $user->tahun_masuk }}</td>
+                    <td class="py-2 px-4 border-b">{{ $user->tahun_lulus }}</td>
                     <td class="py-2 px-4 border-b">{{ $user->prodi }}</td>
                 </tr>
                 @endforeach

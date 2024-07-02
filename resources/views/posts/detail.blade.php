@@ -9,7 +9,7 @@
             <div class="grid grid-cols-2 gap-6">
                 @forelse ($posts as $post)
                     <div class="col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg min-h-[400px] flex flex-col justify-between">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg min-h-[550px] flex flex-col justify-between">
                             <div>
                                 <img src="{{ asset('storage/' . $post->gambar) }}" alt="{{ $post->judul }}" class="w-full h-64 object-cover">
                                 <div class="p-6">

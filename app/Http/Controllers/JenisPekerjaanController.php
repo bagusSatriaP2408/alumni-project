@@ -13,7 +13,8 @@ class JenisPekerjaanController extends Controller
      */
     public function index()
     {
-        //
+        $pekerjaans = JenisPekerjaan::all();
+        return view('admin.jenis-pekerjaan.index', compact('pekerjaans'));
     }
 
     /**
@@ -21,7 +22,7 @@ class JenisPekerjaanController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.jenis-pekerjaan.create');
     }
 
     /**
@@ -29,7 +30,15 @@ class JenisPekerjaanController extends Controller
      */
     public function store(StoreJenisPekerjaanRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_pekerjaan' => 'required|string|max:255', 
+        ]);
+    
+        $jenisPekerjaan = new JenisPekerjaan();
+        $jenisPekerjaan->nama_pekerjaan = $validatedData['nama_pekerjaan'];
+        $jenisPekerjaan->save();
+    
+        return redirect()->route('jenis-pekerjaan.index')->with('success', 'Jenis Pekerjaan berhasil ditambahkan!');
     }
 
     /**
@@ -43,17 +52,27 @@ class JenisPekerjaanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(JenisPekerjaan $jenisPekerjaan)
+    public function edit($id)
     {
-        //
+        $jobType = JenisPekerjaan::findOrFail($id);
+        return view('admin.jenis-pekerjaan.edit', compact('jobType'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJenisPekerjaanRequest $request, JenisPekerjaan $jenisPekerjaan)
+    public function update(UpdateJenisPekerjaanRequest $request, $id)
     {
-        //
+        $request->validate([
+            'nama_pekerjaan' => 'required|string|max:255',
+        ]);
+
+        $jobType = JenisPekerjaan::findOrFail($id);
+        $jobType->nama_pekerjaan = $request->nama_pekerjaan;
+        $jobType->save();
+
+        return redirect()->route('jenis-pekerjaan.index')
+                            ->with('success', 'Jenis Pekerjaan updated successfully');
     }
 
     /**
@@ -61,6 +80,7 @@ class JenisPekerjaanController extends Controller
      */
     public function destroy(JenisPekerjaan $jenisPekerjaan)
     {
-        //
+        $jenisPekerjaan->delete();
+        return redirect()->route('jenis-pekerjaan.index')->with('success', 'Jenis Pekerjaan berhasil dihapus!');
     }
 }
