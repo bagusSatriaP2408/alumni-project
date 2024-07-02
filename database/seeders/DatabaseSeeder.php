@@ -107,7 +107,19 @@ class DatabaseSeeder extends Seeder
         ]);
         JenisPekerjaan::create([
             'id_jenis_pekerjaan'=>2,
-            'nama_pekerjaan'=>'Fullstack Developer'
+            'nama_pekerjaan'=>'Web Developer'
+        ]);
+        JenisPekerjaan::create([
+            'id_jenis_pekerjaan'=>3,
+            'nama_pekerjaan'=>'Computer networking specialist'
+        ]);
+        JenisPekerjaan::create([
+            'id_jenis_pekerjaan'=>4,
+            'nama_pekerjaan'=>'Cloud computing engineer'
+        ]);
+        JenisPekerjaan::create([
+            'id_jenis_pekerjaan'=>5,
+            'nama_pekerjaan'=>'Software developer'
         ]);
     }
 
