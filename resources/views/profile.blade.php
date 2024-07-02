@@ -3,7 +3,9 @@ $adaRiwayat=False;
 foreach ($pekerjaan as $item) {
     if ($item->done==1) {
         $adaRiwayat = True;
-    };
+    }else{
+        $adaRiwayat = True;
+    }
 }
 $nowJobless = True
 @endphp
