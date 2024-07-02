@@ -3,7 +3,7 @@
         <div class="text_search text-center mb-5">
             <h1 class="text-3xl font-semibold">Cari Lulusan</h1>
         </div>
-        <div class="w-full md:w-2/3 lg:w-1/2 xl:w-1/2 px-3 mx-auto"> <!-- Menyesuaikan lebar dan posisi tengah -->
+        <div class="w-9/12 px-3 mx-auto"> <!-- Menyesuaikan lebar dan posisi tengah -->
             <form class="flex" action="{{ route('search.search') }}" method="post">
                 @csrf
                 <div class="flex items-center w-full"> <!-- Menggunakan w-full untuk memenuhi lebar form -->
@@ -11,8 +11,21 @@
                         type="search" placeholder="Name" aria-label="Search">
                     <input name="tahun_masuk" class="ml-2 w-40 px-3 py-2 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-blue-500"
                         type="search" placeholder="Tahun Masuk" aria-label="Search">
-                    <input name="prodi" class="ml-2 w-40 px-3 py-2 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-blue-500"
-                        type="search" placeholder="Prodi" aria-label="Search">
+
+                    <select name="prodi" class="ml-2 w-40 px-3 py-2 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-blue-500">
+                        <option value="" selected>Semua Prodi</option>
+                        @foreach ($prodis as $prodi)
+                            <option value="{{ $prodi->id }}">{{ $prodi->name }}</option> 
+                        @endforeach
+                    </select>
+
+                    <select name="pekerjaan" class="ml-2 w-40 py-2 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-blue-500">
+                        <option value="" selected>Semua Pekerjaan</option>
+                        @foreach ($jenisPekerjaan as $pekerjaan)
+                            <option value="{{ $pekerjaan->id_jenis_pekerjaan }}">{{ $pekerjaan->nama_pekerjaan }}</option> 
+                        @endforeach
+                    </select>
+                    
                     <button type="submit"
                         class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
                         Cari</button>

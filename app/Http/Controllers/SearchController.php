@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JenisPekerjaan;
 use App\Models\User;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,10 +13,15 @@ class SearchController extends Controller
     public function index()
     {
         $users = User::join('prodi', 'users.prodi', '=', 'prodi.id')
-                     ->select('users.*', 'prodi.name as prodi')
-                     ->get();
+             ->join('pekerjaan', 'users.id', '=', 'pekerjaan.user_id')
+             ->select('users.*', 'prodi.name as prodi')
+             ->distinct()
+             ->latest()
+             ->get();
+        $prodis = Prodi::all(); 
+        $jenisPekerjaan = JenisPekerjaan::all(); 
                      
-        return view('search', compact('users'));
+        return view('search', compact('users', 'prodis', 'jenisPekerjaan'));
     }
 
     public function search(Request $request)
@@ -22,9 +29,13 @@ class SearchController extends Controller
         $search = $request->input('search');
         $tahun_masuk = $request->input('tahun_masuk');
         $prodi = $request->input('prodi');
+        $pekerjaan = $request->input('pekerjaan');
         
         $query = User::join('prodi', 'users.prodi', '=', 'prodi.id')
-                     ->select('users.*', 'prodi.name as prodi');
+            ->join('pekerjaan', 'users.id', '=', 'pekerjaan.user_id')
+            ->select('users.*', 'prodi.name as prodi')
+            ->distinct()
+            ->latest();
     
         if (!empty($search)) {
             $query->where('users.name', 'like', '%' . $search . '%');
@@ -35,11 +46,17 @@ class SearchController extends Controller
         }
     
         if (!empty($prodi)) {
-            $query->where('prodi.name', 'like', '%' . $prodi . '%');
+            $query->where('prodi.id', 'like', '%' . $prodi . '%');
+        }
+
+        if (!empty($pekerjaan)) {
+            $query->where('pekerjaan.jenis_pekerjaan_id', 'like', '%' . $pekerjaan . '%');
         }
     
         $users = $query->get();
-    
-        return view('search', compact('users'));
+        $prodis = Prodi::all();
+        $jenisPekerjaan = JenisPekerjaan::all(); 
+
+        return view('search', compact('users', 'prodis', 'jenisPekerjaan'));
     }
 }

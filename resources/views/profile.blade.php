@@ -96,7 +96,7 @@ $nowJobless = True
                         <td class="py-4 px-6">{{ $item->nama_perusahaan }}</td>
                         <td class="py-4 px-6">{{ $item->alamat_perusahaan }}</td>
                         <td class="py-4 px-6">{{ $item->mulai_bekerja }}</td>
-                        <td class="py-4 px-6">Ongoing</td>
+                        <td class="py-4 px-6">Sedang Bekerja</td>
                     </tr>
                     @php
                         $nowJobless=False
@@ -110,7 +110,6 @@ $nowJobless = True
         </div>
     </div>
     @endif
-
     @if ($nowJobless)
         <div class="max-w-4xl mx-auto py-12 bg-white shadow overflow-hidden sm:rounded-lg my-5">
             <h3 class="text-center text-lg font-medium text-gray-500 mb-6">Pekerjaan Saat Ini</h3>
@@ -118,4 +117,7 @@ $nowJobless = True
         </div>
     @endif
 </div>
+
+
+
 </x-app-layout>
