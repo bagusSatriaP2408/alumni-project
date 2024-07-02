@@ -7,40 +7,32 @@
         </div>
     </x-slot>
 
-    <div class="container mx-auto px-4 py-6">
-        <!-- Konten Tracking -->
+    <div class="max-w-7xl mx-auto px-4 py-6">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
             <h3 class="text-lg font-medium text-gray-900 mb-4">Data Tracking Hasil Kuisioner</h3>
             <div class="overflow-x-auto">
-                <table class="min-w-full bg-white">
-                    <thead>
+                <table class="min-w-full bg-white table-auto">
+                    <thead class="bg-gray-200">
                         <tr>
-                            <th class="w-1/4 px-4 py-2">Nama Kuisioner</th>
-                            <th class="w-1/4 px-4 py-2">Responden</th>
-                            <th class="w-1/4 px-4 py-2">Hasil</th>
+                            <th class="px-4 py-2 text-left text-gray-600">Nama Kuisioner</th>
+                            <th class="px-4 py-2 text-left text-gray-600">Responden</th>
+                            <th class="px-4 py-2 text-left text-gray-600">Hasil</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Data Kuisioner -->
-                         @foreach ( $kuisioner as $k )
-                         <tr>
-                           
-                            <td class="border px-4 py-2">{{ $k->kuisioner }}</td>
-                            <td class="border px-4 py-2">{{ $count_respondan }}</td>
-                            
-                            <td class="border px-4 py-2">
-                            @foreach ( $tracking as $t )
-                            @if ($k->id_kuisioner==$t->id_kuisioner)
-                                <p>{{$t->inputan}}={{$t->hasil_kuisioner->count()}}</p>
-                            @endif
-                                
-                            @endforeach
+                    <tbody class="text-gray-700">
+                        @foreach ($kuisioner as $k)
+                        <tr class="border-b">
+                            <td class="px-4 py-2">{{ $k->kuisioner }}</td>
+                            <td class="px-4 py-2">{{ $count_respondan }}</td>
+                            <td class="px-4 py-2">
+                                @foreach ($tracking as $t)
+                                    @if ($k->id_kuisioner == $t->id_kuisioner)
+                                        <p>{{ $t->inputan }}: {{ $t->hasil_kuisioner->count() }}</p>
+                                    @endif
+                                @endforeach
                             </td>
-                            
-                         @endforeach
-                        
-                         </tr>
-                        
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

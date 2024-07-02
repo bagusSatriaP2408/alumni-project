@@ -51,6 +51,11 @@ class SearchController extends Controller
         if (!empty($pekerjaan)) {
             $query->where('pekerjaan.jenis_pekerjaan_id', 'like', '%' . $pekerjaan . '%');
         }
+
+        if (empty($search) && empty($tahun_masuk) && empty($prodi) && empty($pekerjaan)) {
+            $query = User::join('prodi', 'users.prodi', '=', 'prodi.id')
+                ->select('users.*', 'prodi.name as prodi');
+        }
     
         $users = $query->get();
         $prodis = Prodi::all();
