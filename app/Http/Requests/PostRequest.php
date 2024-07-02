@@ -25,6 +25,7 @@ class PostRequest extends FormRequest
             'gambar' => [$this->method() === 'POST' ? 'required' : '', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'judul' => ['required', 'string', 'min:3', 'max:255'],
             'deskripsi' => ['required', 'string', 'min:3'],
+            'kategori_id' => ['required', 'exists:post_categories,id_kategori'],
         ];
     }
 }

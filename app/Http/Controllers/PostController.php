@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 // use App\Enums\postStatus;
+use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Contracts\View\View;
 
 class PostController extends Controller
 {
@@ -26,6 +27,13 @@ class PostController extends Controller
             'posts' => $posts,
         ]);
     }
+
+    public function index_kategori()
+    {
+        $categories = PostCategory::all();
+        return view('admin.kategori-post.index', compact('categories'));
+    }
+
     public function show_admin(Request $request): View
     {
         $posts = Post::with('user')->latest()->get();
@@ -33,14 +41,15 @@ class PostController extends Controller
         return view('admin.postingan', compact('posts'));
     }
 
-    
         
         /**
          * Show the form for creating a new resource.
          */
     public function create()
     {
+        $categories = PostCategory::all();
         return view('posts.form', [
+            'categories' => $categories,
             'posts' => new Post(),
             'page_meta' => [
                 'title' => 'Buat Postingan',
@@ -49,6 +58,11 @@ class PostController extends Controller
                 'url' => route('posts.store'),
             ]
         ]);
+    }
+
+    public function create_kategori()
+    {
+        return view('admin.kategori-post.create');
     }
 
     /**
@@ -64,6 +78,19 @@ class PostController extends Controller
         ]);
 
         return to_route('posts.user_posts');
+    }
+
+    public function store_kategori(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama_kategori' => 'required|string|max:255',
+        ]);
+
+        $category = new PostCategory();
+        $category->nama_kategori = $validatedData['nama_kategori'];
+        $category->save();
+
+        return redirect()->route('kategori-post.index')->with('success', 'Kategori berhasil ditambahkan!');
     }
 
     /**
@@ -95,9 +122,11 @@ class PostController extends Controller
         // dd('tes');
         Gate::authorize('update', $post);
         // abort_if($request->user()->isNot($post->user), 401);
+        $categories = PostCategory::all();
 
         return view('posts.form', [
             'posts' => $post,
+            'categories' => $categories,
             'page_meta' => [
                 'title' => 'Edit post',
                 'description' => 'Edit post:' . $post->judul,
@@ -105,6 +134,12 @@ class PostController extends Controller
                 'url' => route('posts.update', $post)
             ]
         ]);
+    }
+
+    public function edit_kategori($id)
+    {
+        $category = PostCategory::where('id_kategori', $id)->first();;
+        return view('admin.kategori-post.edit', compact('category'));
     }
 
     /**
@@ -122,10 +157,25 @@ class PostController extends Controller
         $post->update([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
+            'kategori_id' => $request->kategori_id,
             'gambar' => $file,
         ]);
 
         return to_route('posts.user_posts');
+    }
+
+    /**
+     * Update the specified category in storage.
+     */
+    public function update_kategori(Request $request, $id)
+    {   
+        $validatedData = $request->validate([
+            'nama_kategori' => 'required|string|max:255',
+        ]);
+        $category = PostCategory::where('id_kategori', $id)->first();
+        $category->nama_kategori = $validatedData['nama_kategori'];
+        $category->save();
+        return redirect()->route('kategori-post.index')->with('success', 'Kategori berhasil diperbarui!');
     }
 
     /**
@@ -140,5 +190,15 @@ class PostController extends Controller
     {   
         $post->delete();
         return redirect()->route('admin.postingan')->with('success', 'Post berhasil dihapus!');
+    }
+
+    /**
+     * Remove the specified category from storage.
+     */
+    public function destroy_kategori($id)
+    {   
+        $category = PostCategory::where('id_kategori', $id)->first();
+        $category->delete();
+        return redirect()->route('kategori-post.index')->with('success', 'Kategori berhasil dihapus!');
     }
 }

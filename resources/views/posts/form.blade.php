@@ -51,6 +51,18 @@
                             <x-input-error :messages="$errors->get('deskripsi')" class="mt-2" />
                         </div>
 
+                        <div>
+                            <x-input-label for="kategori_id" :value="__('Kategori')" />
+                            <select id="kategori_id" name="kategori_id" class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1">
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id_kategori }}" @if(old('kategori_id', $posts->kategori_id) == $category->id_kategori) selected @endif>
+                                        {{ $category->nama_kategori }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('kategori_id')" class="mt-2" />
+                        </div>
+
                         <x-primary-button>Simpan</x-primary-button>
 
                     </form>
