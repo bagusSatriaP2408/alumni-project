@@ -7,7 +7,7 @@
     <div class="flex justify-center">
         <div class="w-10/12 px-12">
             <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
-                @if ($main_kuisioner->count() > 0)
+                @if ($main_kuisioner!=='flag') 
                 <table class="min-w-max w-full table-auto">
                     <thead class="bg-gray-200">
                         <tr>

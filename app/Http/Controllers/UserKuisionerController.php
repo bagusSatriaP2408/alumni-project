@@ -14,16 +14,15 @@ class UserKuisionerController extends Controller
     {
         // Ambil ID pengguna saat ini, misalnya:
         $userId = auth()->user()->nim;
-        $userId = auth()->user()->nim;
         $hasil = Kuisioner::with(['mainKuisioner', 'hasilKuisioner'])
                         ->whereHas('hasilKuisioner', function ($query) use ($userId) {
-                            $query->where('nim','!=', $userId);
+                            $query->where('nim','=', $userId);
                         })
                         ->get();
         $c_hasil1=Kuisioner::count();
         $c_hasil2=count($hasil);                   
         if ($c_hasil1==$c_hasil2) {
-            $main_kuisioner = null;
+            $main_kuisioner = 'flag';
             return view('kuisioner.index',compact('main_kuisioner'));
         }else{
             $main_kuisioner=MainKuisioner::with('kuisioner.hasilkuisioner')->whereDoesntHave('kuisioner.hasilkuisioner',function ($query) use ($userId) {

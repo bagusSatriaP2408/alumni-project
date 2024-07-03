@@ -37,8 +37,7 @@ class TrackingController extends Controller
         })->get();
         $count_respondan=$respondan->count();
         $count_respondan=$count_respondan/$count;
-        
-        return view('admin.tracking.tracking_kuisioner', compact('tracking','kuisioner','count_respondan'));
+        return view('admin.tracking.tracking_kuisioner', compact('tracking','kuisioner','count_respondan',));
     
 }
 
