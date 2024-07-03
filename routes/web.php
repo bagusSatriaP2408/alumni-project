@@ -67,10 +67,17 @@ Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function
     // Route::get('jenis-pekerjaan/{id}/edit', [Controllers\PostController::class, 'edit_jenis-pekerjaan'])->name('jenis-pekerjaan.edit');
     // Route::put('jenis-pekerjaan/{id}', [Controllers\PostController::class, 'update_jenis-pekerjaan'])->name('jenis-pekerjaan.update');
     // Route::delete('jenis-pekerjaan/{id}', [Controllers\PostController::class, 'destroy_jenis-pekerjaan'])->name('jenis-pekerjaan.destroy');
-
+    Route::get('tracking/search', [Controllers\TrackingController::class, 'search_page'])->name('tracking.search.search_page');
+    Route::post('tracking/search', [Controllers\TrackingController::class, 'search'])->name('tracking.search.search');
+    Route::get('tracking/not_work', [Controllers\TrackingController::class, 'not_work'])->name('tracking.search.not_work');
+    Route::post('tracking/not_work', [Controllers\TrackingController::class, 'not_work_search'])->name('tracking.search.not_work');
+    Route::get('tracking/work', [Controllers\TrackingController::class, 'work'])->name('tracking.search.work');
+    Route::post('tracking/work', [Controllers\TrackingController::class, 'work_search'])->name('tracking.search.work');
     Route::resource('jenis-pekerjaan', Controllers\JenisPekerjaanController::class);
     Route::resource('tracking', Controllers\TrackingController::class);
     Route::get('tracking/kuisioner/{id}', [Controllers\TrackingController::class, 'kuisioner'])->name('tracking.kuisioner');
+
+    
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy_admin'])->name('logout');
 
 

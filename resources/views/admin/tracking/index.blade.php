@@ -50,6 +50,30 @@
                                 </td>
                             </tr>
                         @endforeach
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                <a href="{{route('tracking.search.work')}}" class="text-indigo-600 hover:text-indigo-900">Jumlah </a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{$pekerjaan->count()}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                <a href="{{route('tracking.search.search_page')}}" class="text-indigo-600 hover:text-indigo-900">Jumlah Lulusan</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{$lulusan}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                <a href="{{route('tracking.search.not_work')}}" class="text-indigo-600 hover:text-indigo-900">Jumlah yang tidak bekerja</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{$not_work}}
+                                </td>
+                            </tr>
                     </tbody>
                 </table>
             </div>

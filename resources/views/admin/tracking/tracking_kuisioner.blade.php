@@ -42,7 +42,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                @foreach ($kuisioner as $index => $k)
+                <!-- @foreach ($kuisioner as $index => $k)
                 @php
                 $labels = [];
                 $data = [];
@@ -102,7 +102,7 @@
                         });
                     });
                 </script>
-                @endforeach
+                @endforeach -->
             </div>
         </div>
     </div>
