@@ -4,9 +4,12 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Tracking') }}
             </h2>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Tracking per angkatan') }}
-            </h2>
+            <a href="{{route('tracking.angkatan')}}">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Tracking per angkatan') }}
+                </h2>
+            </a>
+            
         </div>
     </x-slot>
 
