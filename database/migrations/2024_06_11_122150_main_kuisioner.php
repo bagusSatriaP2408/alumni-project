@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create("main_kuisioner", function (Blueprint $table){
             $table->id('id_main_kuisioner');
             $table->string('subject');
+            $table->string('type');
         });
     }
 

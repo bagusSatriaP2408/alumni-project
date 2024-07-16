@@ -31,6 +31,7 @@ class KuisionerController extends Controller
     // Validasi input
     $request->validate([
         'subject' => 'required|string|max:255',
+        'type' => 'required',
         'kuisioner' => 'required|array|min:1',
         'kuisioner.*' => 'required|string|max:255',
     ]);
@@ -38,6 +39,7 @@ class KuisionerController extends Controller
     // Buat entry baru di tabel MainKuisioner
     $mainKuisioner = MainKuisioner::create([
         'subject' => $request->subject,
+        'type'=>$request->type
     ]);
 
     // Ambil id_main_kuisioner yang baru saja dibuat

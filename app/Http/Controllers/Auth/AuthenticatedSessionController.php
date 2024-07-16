@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -55,6 +56,7 @@ public function store(Request $request): RedirectResponse
      */
     public function destroy(Request $request): RedirectResponse
     {
+    
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
@@ -65,12 +67,17 @@ public function store(Request $request): RedirectResponse
     }
     public function destroy_admin(Request $request): RedirectResponse
     {
+        Log::info('Admin logout initiated');
+        
         auth()->guard('web-admin')->logout();
-
+        Log::info('Admin logged out');
+    
         $request->session()->invalidate();
-
+        Log::info('Session invalidated');
+    
         $request->session()->regenerateToken();
-
+        Log::info('Token regenerated');
+    
         return redirect('/');
     }
 }

@@ -59,7 +59,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         MainKuisioner::create([
-            "subject"=>"Kuisioner 1"
+            "subject"=>"Kuisioner 1",
+            "type"=>"alumni",
         ]);
 
         Kuisioner::create([
@@ -103,23 +104,28 @@ class DatabaseSeeder extends Seeder
         
         JenisPekerjaan::create([
             'id_jenis_pekerjaan'=>1,
-            'nama_pekerjaan'=>'Machine Learning Developer'
+            'nama_pekerjaan'=>'Machine Learning Developer',
+            'type'=>'1'
         ]);
         JenisPekerjaan::create([
             'id_jenis_pekerjaan'=>2,
-            'nama_pekerjaan'=>'Web Developer'
+            'nama_pekerjaan'=>'Web Developer',
+            'type'=>'1'
         ]);
         JenisPekerjaan::create([
             'id_jenis_pekerjaan'=>3,
-            'nama_pekerjaan'=>'Computer networking specialist'
+            'nama_pekerjaan'=>'Computer networking specialist',
+            'type'=>'1'
         ]);
         JenisPekerjaan::create([
             'id_jenis_pekerjaan'=>4,
-            'nama_pekerjaan'=>'Cloud computing engineer'
+            'nama_pekerjaan'=>'Cloud computing engineer',
+            'type'=>'1'
         ]);
         JenisPekerjaan::create([
             'id_jenis_pekerjaan'=>5,
-            'nama_pekerjaan'=>'Software developer'
+            'nama_pekerjaan'=>'Software developer',
+            'type'=>'1'
         ]);
     }
 

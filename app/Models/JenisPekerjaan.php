@@ -11,7 +11,7 @@ class JenisPekerjaan extends Model
     protected $guarded = ["id_jenis_pekerjaan"];
     protected $primaryKey='id_jenis_pekerjaan';
 
-    protected $fillable = ['nama_pekerjaan'];
+    protected $fillable = ['nama_pekerjaan','type'];
 
     // public function jenisPekerjaan()
     // {
