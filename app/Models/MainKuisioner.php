@@ -19,7 +19,7 @@ class MainKuisioner extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['id_main_kuisioner', 'subject'];
+    protected $fillable = ['id_main_kuisioner', 'subject','type'];
 
 
     /**

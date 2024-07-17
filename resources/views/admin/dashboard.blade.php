@@ -1,5 +1,5 @@
 <x-Admin-layout>
-
+    
     {{-- <x-slot name="title">
         Dashboard
     </x-slot> --}}

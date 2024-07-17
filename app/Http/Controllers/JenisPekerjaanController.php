@@ -32,10 +32,12 @@ class JenisPekerjaanController extends Controller
     {
         $validatedData = $request->validate([
             'nama_pekerjaan' => 'required|string|max:255', 
+            'type' => 'required'
         ]);
     
         $jenisPekerjaan = new JenisPekerjaan();
         $jenisPekerjaan->nama_pekerjaan = $validatedData['nama_pekerjaan'];
+        $jenisPekerjaan->type = $validatedData['type'];
         $jenisPekerjaan->save();
     
         return redirect()->route('jenis-pekerjaan.index')->with('success', 'Jenis Pekerjaan berhasil ditambahkan!');
