@@ -6,6 +6,11 @@
             </h2>
         </div>
     </x-slot>
+    <div class="container mx-auto px-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <a href="{{ route('tracking.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Kembali
+        </a>
+    </div>
     <div class="max-w-7xl mx-auto px-4 py-6">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
             <h3 class="text-lg font-medium text-gray-900 mb-4">Data Tracking Hasil Kuisioner</h3>
