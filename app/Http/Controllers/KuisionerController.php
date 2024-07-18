@@ -202,16 +202,17 @@ class KuisionerController extends Controller
         // Redirect ke halaman index kuisioner atau lakukan sesuatu yang sesuai
         return redirect()->route('admin.kuisioner.output',$id_main)->with('success', 'Kuisioner created successfully.');
     }
-    public function output_edit($id)
+    public function output_edit($id,$id_main)
     {
         // Ambil data Kuisioner beserta data MainKuisioner yang terkait
         $output = Kuisioner::with('main_hasil_kuisioner')->find($id);
+        $main_kuisioner = MainKuisioner::where('id_main_kuisioner', $id_main)->first();
         // Jika $output tidak ditemukan, bisa ditangani sesuai kebutuhan
         if (!$output) {
             // Lakukan redirect atau tindakan lain
             return redirect()->back()->with('error', 'output not found.');
         };
-        return view('admin.kuisioner.output_edit', compact('output'));
+        return view('admin.kuisioner.output_edit', compact('output','main_kuisioner'));
     }
     public function output_edit_store(Request $request, $id)
     {

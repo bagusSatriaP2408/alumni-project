@@ -49,7 +49,8 @@ class DatabaseSeeder extends Seeder
             "password"=>"password",
             "tahun_masuk"=>"2022",
             "tahun_lulus"=>"2024",
-            "prodi"=>2
+            "prodi"=>2,
+            "approved"=>"1"
         ]);
         User::create([
             "nim"=>"200411100011",
@@ -58,7 +59,8 @@ class DatabaseSeeder extends Seeder
             "password"=>"password",
             "tahun_masuk"=>"2022",
             "tahun_lulus"=>"2024",
-            "prodi"=>1
+            "prodi"=>1,
+            "approved"=>"1"
         ]);
         User::create([
             "nim"=>"200411100001",
@@ -67,9 +69,19 @@ class DatabaseSeeder extends Seeder
             "password"=>"password",
             "tahun_masuk"=>"2022",
             "tahun_lulus"=>"2024",
-            "prodi"=>1
+            "prodi"=>1,
+            "approved"=>"1"
         ]);
-
+        User::create([
+            "nim"=>"200411100212",
+            "email"=>"bagussswsw@gmail.com",
+            "name"=>"Bagus Sfefea",
+            "password"=>"password",
+            "tahun_masuk"=>"2020",
+            "tahun_lulus"=>"2024",
+            "prodi"=>1,
+            "approved"=>"1"
+        ]);
         Admin::create([
             "email"=>"admin@admin.com",
             "name"=>"Admin",

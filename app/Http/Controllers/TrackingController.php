@@ -19,7 +19,7 @@ class TrackingController extends Controller
         $jenisPekerjaan = JenisPekerjaan::all();
         $pekerjaan = Pekerjaan::all();
         $main_kuisioner = MainKuisioner::all();
-        $lulusan=User::all();
+        $lulusan=User::where('approved',1);
         $lulusan=$lulusan->count();
         $count_pekerjaan=$pekerjaan->count();
         $not_work=$lulusan-$count_pekerjaan;
@@ -63,7 +63,7 @@ public function search_page()
 
     $users = User::join('prodi', 'users.prodi', '=', 'prodi.id')
             ->select('users.*', 'prodi.name as prodi')
-            ->get();
+            ->where('approved',1)->get();
     // dd($users);
     $prodis = Prodi::all(); 
     $jenisPekerjaan = JenisPekerjaan::all(); 
@@ -75,7 +75,7 @@ public function not_work()
 
     $users = User::join('prodi', 'users.prodi', '=', 'prodi.id')
             ->select('users.*', 'prodi.name as prodi')->whereDoesntHave('pekerjaan')
-            ->get();
+            ->where('approved',1)->get();
     $prodis = Prodi::all(); 
     $jenisPekerjaan = JenisPekerjaan::all();             
     return view('admin.tracking.not_work', compact('users', 'prodis', 'jenisPekerjaan'));
