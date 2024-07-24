@@ -29,16 +29,17 @@ class AdminController extends Controller
      */
     public function show(Request $request): View
     {
-        // Ambil semua data user tanpa memperhatikan status approved dan menggunakan pagination
-        $User = User::paginate();
-
+        // Ambil semua data user dengan order berdasarkan 'approved' dan menggunakan pagination
+        $User = User::orderBy('approved', 'asc')->paginate(20); // Mengatur 10 data per halaman
+    
         // Mengatur kembali nomor halaman (pagination) dengan menggunakan 'page' dari input request
         $User->appends($request->except('page'));
-
+    
         // Mengembalikan view admin.lulusan dengan semua data user dan pagination
         return view('admin.lulusan', compact('User'))
             ->with('i', ($request->input('page', 1) - 1) * $User->perPage());
     }
+    
     public function setujui(Request $request)
     {
         $confirm="pendaftaran akun anda telah disetujui";

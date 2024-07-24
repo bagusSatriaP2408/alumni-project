@@ -6,6 +6,12 @@
             {{ __('List Kuisioner') }}
         </h2>
     </x-slot>
+    <div class="container mx-auto px-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <a href="{{ route('admin.kuisioner') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Kembali
+        </a>
+    </div>
+
     <div class="flex justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="w-full">
             <div class="bg-white shadow-md rounded my-6">

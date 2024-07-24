@@ -180,18 +180,19 @@ class KuisionerController extends Controller
     // Return the view with the found kuisioner
     return view('admin.kuisioner.output', compact('kuisioner'));
     }
-    public function output_create($id)
+    public function output_create($id,$id_main)
     {
         $kuisioner = Kuisioner::where('id_kuisioner', $id)->first();
+        $main_kuisioner = MainKuisioner::where('id_main_kuisioner', $id_main)->first();
     if (!$kuisioner) {
         // Handle the case where the kuisioner is not found
         return redirect()->route('admin.kuisioner')->with('error', 'Kuisioner not found');
     }
 
     // Return the view with the found kuisioner
-    return view('admin.kuisioner.output_create', compact('kuisioner'));
+    return view('admin.kuisioner.output_create', compact('kuisioner','main_kuisioner'));
     }
-    public function output_store(Request $request)
+    public function output_store(Request $request,$id_main)
     {
         $request->validate([
             'id_kuisioner'=>'required',
@@ -215,18 +216,19 @@ class KuisionerController extends Controller
         }
     
         // Redirect ke halaman index kuisioner atau lakukan sesuatu yang sesuai
-        return redirect()->route('admin.kuisioner')->with('success', 'Kuisioner created successfully.');
+        return redirect()->route('admin.kuisioner.output',$id_main)->with('success', 'Kuisioner created successfully.');
     }
-    public function output_edit($id)
+    public function output_edit($id,$id_main)
     {
         // Ambil data Kuisioner beserta data MainKuisioner yang terkait
         $output = Kuisioner::with('main_hasil_kuisioner')->find($id);
+        $main_kuisioner = MainKuisioner::where('id_main_kuisioner', $id_main)->first();
         // Jika $output tidak ditemukan, bisa ditangani sesuai kebutuhan
         if (!$output) {
             // Lakukan redirect atau tindakan lain
             return redirect()->back()->with('error', 'output not found.');
         };
-        return view('admin.kuisioner.output_edit', compact('output'));
+        return view('admin.kuisioner.output_edit', compact('output','main_kuisioner'));
     }
     public function output_edit_store(Request $request, $id)
     {

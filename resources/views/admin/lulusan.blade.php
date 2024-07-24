@@ -1,16 +1,14 @@
-
 <x-Admin-layout>
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Daftar Lulusan') }}
         </h2>
     </x-slot>
-<div class="container mx-auto px-4 max-w-7xl mx-auto">
+    <div class="container mx-auto px-4 max-w-7xl">
         <div class="flex justify-center">
             <div class="w-full">
-                <div class="bg-white shadow-md rounded my-6">
-                    <table class="min-w-max w-full table-auto">
+                <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
+                    <table class="min-w-max w-full table-auto ">
                         <thead class="bg-gray-200">
                             <tr>
                                 <th class="py-2 px-4 border-b">No</th>
@@ -34,7 +32,7 @@
                                     <td class="py-2 px-4 text-center">{{ $u->tahun_lulus }}</td>
                                     <td class="py-2 px-4 text-center">{{ ($u->prodi==1) ? "Teknik Informatika" : "Sistem Informasi" }}</td>
                                     <td class="py-2 px-4 text-center">
-                                        @if(!$u->approved) <!-- Check if the user is not approved -->
+                                        @if(!$u->approved)
                                             <form action="{{route('admin.lulusan.setujui')}}" method="POST" class="inline-block">
                                                 @csrf
                                                 <input type="hidden" name="user_id" value="{{ $u->id }}">
@@ -58,11 +56,10 @@
                         </tbody>
                     </table>
                 </div>
-                </div>
                 <div class="mt-4">
-                    {!! $User->withQueryString()->links() !!}
+                    {!! $User->withQueryString()->links('pagination::tailwind') !!}
                 </div>
             </div>
         </div>
     </div>
-    </x-Admin-layout>
+</x-Admin-layout>

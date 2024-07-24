@@ -55,9 +55,9 @@ Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function
     Route::post('/kuisioner/delete/{id}', [KuisionerController::class, 'destroy'])->name('admin.kuisioner.delete');
     Route::get('/kuisioner/hasil/{id}', [KuisionerController::class, 'show_hasil'])->name('admin.kuisioner.hasil');
     Route::get('/kuisioner/output/{id}', [KuisionerController::class, 'output'])->name('admin.kuisioner.output');
-    Route::get('/kuisioner/output/create/{id}', [KuisionerController::class, 'output_create'])->name('admin.kuisioner.output_create');
-    Route::post('/kuisioner/output/create/', [KuisionerController::class, 'output_store'])->name('admin.kuisioner.output.store');
-    Route::get('/kuisioner/output/edit/{id}', [KuisionerController::class, 'output_edit'])->name('admin.kuisioner.output_edit');
+    Route::get('/kuisioner/output/create/{id}/{id_main}', [KuisionerController::class, 'output_create'])->name('admin.kuisioner.output_create');
+    Route::post('/kuisioner/output/create/{id_main}', [KuisionerController::class, 'output_store'])->name('admin.kuisioner.output.store');
+    Route::get('/kuisioner/output/edit/{id}/{id_main}', [KuisionerController::class, 'output_edit'])->name('admin.kuisioner.output_edit');
     Route::post('/kuisioner/output/edit/{id}', [KuisionerController::class, 'output_edit_store'])->name('admin.kuisioner.output_edit.store');
     Route::get('/postingan', [PostController::class, 'show_admin'])->name('admin.postingan');
     Route::get('/postingan/{slug}', [PostController::class, 'post_admin_detail'])->name('admin.postingan.show');
@@ -86,6 +86,7 @@ Route::group(['prefix' => 'Admin', 'middleware' => ['auth:web-admin']], function
     Route::resource('jenis-pekerjaan', Controllers\JenisPekerjaanController::class);
     Route::get('tracking/angkatan/', [Controllers\Tracking_angkatan::class, 'index'])->name('tracking.angkatan'); 
     Route::post('tracking/angkatan/track', [Controllers\Tracking_angkatan::class, 'show'])->name('admin.tracking.angkatan.track'); 
+    Route::post('tracking/angkatan/track_multi', [Controllers\Tracking_angkatan::class, 'show_multi'])->name('admin.tracking.angkatan.track_multi'); 
     Route::resource('tracking', Controllers\TrackingController::class);
     
     Route::get('tracking/kuisioner/{id}', [Controllers\TrackingController::class, 'kuisioner'])->name('tracking.kuisioner'); 
