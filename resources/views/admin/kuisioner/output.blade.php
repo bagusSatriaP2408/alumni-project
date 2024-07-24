@@ -19,7 +19,7 @@
                     <tbody>
                         @foreach ($kuisioner as $n)
                             <tr class="border-b">
-                                <td class="py-2 px-4">{{ $n->id_kuisioner }}</td>
+                                <td class="py-2 px-4">{{ $loop->iteration }}</td>
                                 <td class="py-2 px-4">{{ ucwords($n->kuisioner) }}</td>
                                 <td class="py-2 px-4"><a href="{{route('admin.kuisioner.output_create',['id' =>  $n->id_kuisioner])}}" class="inline-flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out">tambah</a>
                                 <a href="{{route('admin.kuisioner.output_edit',['id' =>  $n->id_kuisioner])}}" class="inline-flex items-center justify-center bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out">edit</a>

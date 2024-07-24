@@ -19,6 +19,16 @@ Route::get('posts', [Controllers\PostController::class, 'index'])->name('posts.i
 Route::get('search', [Controllers\SearchController::class, 'index'])->name('search.index');
 Route::get('search/profile/{id}', [Controllers\ProfileController::class, 'show'])->name('profile.show');
 Route::post('search', [Controllers\SearchController::class, 'search'])->name('search.search');
+Route::get('vendor', [Controllers\VendorController::class, 'index'])->name('vendor.index');
+Route::get('vendor/daftar-vendor', [Controllers\VendorController::class, 'daftar_vendor'])->name('vendor.daftar-vendor');
+
+Route::get('/vendor/verifikasi', [Controllers\VendorController::class, 'verifikasi'])->name('vendor.verifikasi');
+Route::post('/vendor/send-otp', [Controllers\VendorController::class, 'sendOtp'])->name('vendor.sendOtp');
+Route::post('/vendor/verify-otp', [Controllers\VendorController::class, 'verifyOtp'])->name('vendor.verifyOtp');
+
+Route::get('vendor/daftar-kuisioner', [Controllers\VendorController::class, 'daftar_kuisioner'])->name('vendor.daftar-kuisioner');
+Route::get('vendor/daftar-kuisioner/{id}', [Controllers\VendorController::class, 'show'])->name('vendor.kuisioner.show');
+Route::post('/vendor/daftar-kuisioner', [Controllers\VendorController::class, 'store'])->name('vendor.kuisioner.store');
 
 Route::middleware('auth')->group(function () {
     Route::resource('posts', Controllers\PostController::class)->except(['index', 'show']);

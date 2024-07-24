@@ -22,11 +22,17 @@
                     <x-nav-link :href="route('kuisioner.index')" :active="request()->routeIs('kuisioner.index')">
                         {{ __('Kuisioner') }}
                     </x-nav-link>
+                    @else
+                    <x-nav-link :href="route('vendor.index')" :active="request()->routeIs('vendor.index')">
+                        {{ __('Vendor') }}
+                    </x-nav-link>
                     @endif
 
                     <x-nav-link :href="route('search.index')" :active="request()->routeIs('search.index')">
                         {{ __('Search') }}
                     </x-nav-link>
+
+                    
                 </div>
             </div>
 

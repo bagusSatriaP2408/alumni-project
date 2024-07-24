@@ -31,4 +31,9 @@ class Main_hasil_kuisioner extends Model
     {
         return $this->hasMany(\App\Models\HasilKuisioner::class, 'id_main_hasil_kuisioner', 'id_main_hasil_kuisioner');
     }
+
+    public function hasil_kuisioner_vendor()
+    {
+        return $this->hasMany(\App\Models\HasilKuisionerVendor::class, 'id_main_hasil_kuisioner', 'id_main_hasil_kuisioner');
+    }
 }

@@ -11,14 +11,23 @@
                 <table class="min-w-max w-full table-auto text-left">
                     <thead class="bg-gray-200">
                         <tr>
-                            <th class="py-2 px-4 border-b">Email</th>
-                            <th class="py-2 px-4 border-b">nama</th>
-                            <th class="py-2 px-4 border-b">Kuisioner</th>
-                            <th class="py-2 px-4 border-b">Hasil Kuisioner</th>
+                            @if ($alumni)
+                                <th class="py-2 px-4 border-b">Email</th>
+                                <th class="py-2 px-4 border-b">nama</th>
+                                <th class="py-2 px-4 border-b">Kuisioner</th>
+                                <th class="py-2 px-4 border-b">Hasil Kuisioner</th>
+                            @else
+                                <th class="py-2 px-4 border-b">Nama Perusahaan</th>
+                                <th class="py-2 px-4 border-b">Alamat</th>
+                                <th class="py-2 px-4 border-b">Email</th>
+                                <th class="py-2 px-4 border-b">Kuisioner</th>
+                                <th class="py-2 px-4 border-b">Hasil Kuisioner</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($hasilKuisioner as $h )
+                        @if ($alumni)
                             <tr class="border-b">
                                 <td class="py-2 px-4">{{ $h->lulusan->email }}</td>
                                 <td class="py-2 px-4">{{ $h->lulusan->name}}</td>
@@ -26,7 +35,16 @@
                                 <td class="py-2 px-4 break-words whitespace-pre-line max-w-xs">{{ $h->main_hasil_kuisioner->inputan}}</td>
                                 </td>
                             </tr>
-
+                        @else
+                            <tr class="border-b">
+                                <td class="py-2 px-4">{{ $h->vendors->nama_perusahaan }}</td>
+                                <td class="py-2 px-4">{{ $h->vendors->alamat_perusahaan}}</td>
+                                <td class="py-2 px-4">{{ $h->vendors->email_perusahaan}}</td>
+                                <td class="py-2 px-4">{{ $h->kuisioner->kuisioner}}</td>
+                                <td class="py-2 px-4 break-words whitespace-pre-line max-w-xs">{{ $h->main_hasil_kuisioner->inputan}}</td>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach    
 
                     </tbody>

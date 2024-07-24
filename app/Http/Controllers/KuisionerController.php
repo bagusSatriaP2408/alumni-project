@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kuisioner;
-use App\Models\MainKuisioner;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use App\Http\Requests\KuisionerRequest;
-use App\Models\HasilKuisioner;
-use App\Models\Main_hasil_kuisioner;
 use App\Models\User;
-use Illuminate\Support\Facades\Redirect;
+use App\Models\Kuisioner;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Models\MainKuisioner;
+use App\Models\HasilKuisioner;
+use App\Models\HasilKuisionerVendor;
+use App\Models\Main_hasil_kuisioner;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\KuisionerRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class KuisionerController extends Controller
 {
@@ -20,8 +21,10 @@ class KuisionerController extends Controller
      */
     public function index(Request $request):View
     {
-        $main_kuisioner = MainKuisioner::all();
-        return view('admin.kuisioner.index', compact('main_kuisioner'));
+        // $main_kuisioner = MainKuisioner::all();
+        $main_kuisioner = MainKuisioner::where('type', 'alumni')->get();
+        $kuisioner_vendor = MainKuisioner::where('type', 'vendor')->get();
+        return view('admin.kuisioner.index', compact('main_kuisioner', 'kuisioner_vendor'));
     }
     /**
      * Store a newly created resource in storage.
@@ -79,14 +82,22 @@ class KuisionerController extends Controller
         $hasilKuisioner = HasilKuisioner::with(['main_hasil_kuisioner', 'lulusan'])
             ->whereHas('kuisioner', function ($query) use ($id) {
                 $query->where('id_main_kuisioner', $id);
-            })->get();       
+            })->get();   
+        $alumni = true;    
         // Cek jika hasil kuisioner tidak ditemukan
         if ($hasilKuisioner->isEmpty()) {
-            return redirect()->route('admin.kuisioner')->with('error', 'Hasil Kuisioner not found');
+            $hasilKuisioner = HasilKuisionerVendor::with(['main_hasil_kuisioner', 'vendors'])
+            ->whereHas('kuisioner', function ($query) use ($id) {
+                $query->where('id_main_kuisioner', $id);
+            })->get();
+            $alumni = false;
+            if ($hasilKuisioner->isEmpty()) {
+                return redirect()->route('admin.kuisioner')->with('error', 'Hasil Kuisioner not found');
+            }
         }
     
         // Return view dengan data dari ketiga tabel yang telah digabungkan
-        return view('admin.kuisioner.hasil', compact('hasilKuisioner'));
+        return view('admin.kuisioner.hasil', compact('hasilKuisioner', 'alumni'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -117,16 +128,21 @@ class KuisionerController extends Controller
     // Update subject MainKuisioner
     $mainKuisioner->subject = $request->subject;
     $mainKuisioner->save();
-
-    // Hapus kuisioner yang terkait dengan MainKuisioner sebelumnya
-    Kuisioner::where('id_main_kuisioner', $id)->delete();
+    // // Hapus kuisioner yang terkait dengan MainKuisioner sebelumnya
+    // Kuisioner::where('id_main_kuisioner', $id)->delete();
+    $flag = Kuisioner::where('id_main_kuisioner', $id)->first()->id_kuisioner;
 
     // Simpan kuisioner yang terkait dengan MainKuisioner yang diupdate
     foreach ($request->kuisioner as $item) {
-        Kuisioner::updateOrCreate(
-            ['id_main_kuisioner' => $id, 'kuisioner' => $item],
-            ['id_main_kuisioner' => $id, 'kuisioner' => $item]
-        );
+        // Kuisioner::updateOrCreate(
+        //     ['id_main_kuisioner' => $id, 'kuisioner' => $item],
+        //     ['id_main_kuisioner' => $id, 'kuisioner' => $item]
+        // );
+        $kuisioner = Kuisioner::where('id_kuisioner', $flag);
+        $kuisioner->update([
+            'kuisioner' => $item,
+        ]);
+        $flag++;
     }
 
     // Redirect ke halaman index kuisioner atau lakukan sesuatu yang sesuai

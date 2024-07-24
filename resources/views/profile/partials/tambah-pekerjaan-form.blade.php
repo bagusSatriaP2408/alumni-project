@@ -25,7 +25,7 @@
         </div>
 
         <div class="mt-4">
-            <label for="jenis_pekerjaan_id" class="block text-sm font-medium text-gray-700">nama pekerjaan</label>
+            <label for="jenis_pekerjaan_id" class="block text-sm font-medium text-gray-700">Jenis Pekerjaan</label>
             <select id="jenis_pekerjaan_id" name="jenis_pekerjaan_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="">Pilih Pekerjaan</option>
                 @foreach ($jenis_pekerjaan as $item)
