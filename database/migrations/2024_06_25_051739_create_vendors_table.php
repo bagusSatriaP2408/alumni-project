@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_perusahaan');
             $table->string('alamat_perusahaan');
-            $table->string('email_perusahaan');
+            $table->string('email_perusahaan')->nullable();
             $table->timestamps();
         });
     }

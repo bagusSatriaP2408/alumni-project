@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\JenisPekerjaan;
+use App\Models\Vendor;
 
 class ProfileController extends Controller
 {
@@ -32,6 +33,7 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $request->user(),
             'jenis_pekerjaan' => JenisPekerjaan::all(),
+            'vendors' => Vendor::all(),
             'index'=>$index,
             'hasjob'=>$hasjob,
             'pekerjaan'=>$pekerjaan
@@ -99,30 +101,62 @@ class ProfileController extends Controller
         // Ambil data pengguna berdasarkan ID
         $user = $users->where('id', $id)->first();
         $pekerjaan = Pekerjaan::where('user_id', $id)->get();
+        $vendors = Vendor::all();
         // Kirim data pengguna ke view profile
-        return view('profile', compact('user','pekerjaan'));
+        return view('profile', compact('user','pekerjaan','vendors'));
     }
 
     public function store_pekerjaan(Request $request): RedirectResponse
     {
-        // dd($request);
         $user = $request->user();
         $mulaiBekerja = $request->input('mulai_bekerja');
+        $jenis_pekerjaan = $request->jenis_pekerjaan_id;
         // $selesaiBekerja = $request->input('selesai_bekerja');
 
         // if ($mulaiBekerja > $selesaiBekerja) {
         //     return Redirect::route('profile.edit')->with('error', 'Selesai bekerja tidak boleh kurang dari mulai bekerja');
         // }
 
+        // Pekerjaan::create([
+        //     'user_id' => $user->id,
+        //     // 'nama_pekerjaan' => $request->input('nama_pekerjaan'),
+        //     'nama_perusahaan' => $request->input('nama_perusahaan'),
+        //     'jenis_pekerjaan_id'=>$request->jenis_pekerjaan_id,
+        //     'alamat_perusahaan' => $request->input('alamat_perusahaan'),
+        //     'mulai_bekerja' => $mulaiBekerja,
+        //     // 'selesai_bekerja' => $selesaiBekerja,
+        //     'done'=>0
+        // ]);
+
+        if ($request->nama_perusahaan === 'new') {
+            $vendor = Vendor::create([
+                'nama_perusahaan' => $request->new_nama_perusahaan,
+                'alamat_perusahaan' => $request->alamat_perusahaan,
+            ]);
+        } else {
+            $vendor = Vendor::where('id', $request->nama_perusahaan)->first();
+            if ($vendor) {
+                $vendor->update([
+                    'alamat_perusahaan' => $request->alamat_perusahaan,
+                ]);
+            }
+        }
+
+        if ($jenis_pekerjaan === 'new') {
+            $type = $request->type;
+            $jenis_pekerjaan = JenisPekerjaan::create([
+                'nama_pekerjaan' => $request->new_jenis_pekerjaan,
+                'type' => $type,
+            ]);
+            $jenis_pekerjaan = $jenis_pekerjaan->id_jenis_pekerjaan;
+        } 
+
         Pekerjaan::create([
             'user_id' => $user->id,
-            // 'nama_pekerjaan' => $request->input('nama_pekerjaan'),
-            'nama_perusahaan' => $request->input('nama_perusahaan'),
-            'jenis_pekerjaan_id'=>$request->jenis_pekerjaan_id,
-            'alamat_perusahaan' => $request->input('alamat_perusahaan'),
+            'vendor_id' => $vendor->id,
+            'jenis_pekerjaan_id' => $jenis_pekerjaan,
             'mulai_bekerja' => $mulaiBekerja,
-            // 'selesai_bekerja' => $selesaiBekerja,
-            'done'=>0
+            'done' => 0
         ]);
 
         return Redirect::route('profile.edit')->with('status', 'pekerjaan-added');
@@ -130,7 +164,6 @@ class ProfileController extends Controller
 
     public function update_pekerjaan(Request $request): RedirectResponse
     {
-        $user = $request->user();
         $mulaiBekerja = $request->mulai_bekerja;
         $selesaiBekerja = $request->input('selesai_bekerja');
 

@@ -32,15 +32,15 @@ foreach ($pekerjaan as $item) {
                 <tbody>
 
                 @foreach ($pekerjaan as $item)
-                @if ($item->done==1) 
-                    <tr class="bg-white border-b">
-                        <td class="py-4 px-6">{{ App\Models\JenisPekerjaan::find($item->jenis_pekerjaan_id)->nama_pekerjaan }}</td>
-                        <td class="py-4 px-6">{{ $item->nama_perusahaan }}</td>
-                        <td class="py-4 px-6">{{ $item->alamat_perusahaan }}</td>
-                        <td class="py-4 px-6">{{ $item->mulai_bekerja }}</td>
-                        <td class="py-4 px-6">{{ $item->selesai_bekerja }}</td>
-                    </tr>
-                @endif
+                    @if ($item->done==1) 
+                        <tr class="bg-white border-b">
+                            <td class="py-4 px-6">{{ App\Models\JenisPekerjaan::find($item->jenis_pekerjaan_id)->nama_pekerjaan }}</td>
+                            <td class="py-4 px-6">{{ $vendors->where('id', $item->vendor_id)->first()->nama_perusahaan }}</td>
+                            <td class="py-4 px-6">{{ $vendors->where('id', $item->vendor_id)->first()->alamat_perusahaan }}</td>
+                            <td class="py-4 px-6">{{ $item->mulai_bekerja }}</td>
+                            <td class="py-4 px-6">{{ $item->selesai_bekerja }}</td>
+                        </tr>
+                    @endif
                 @endforeach
                 
                 </tbody>

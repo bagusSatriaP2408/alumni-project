@@ -1,5 +1,6 @@
 @php
     $pekerjaan = App\Models\Pekerjaan::find($index);
+    $vendor = App\Models\Vendor::where('id', $pekerjaan->vendor_id)->first();
     $jenis_pekerjaan = App\Models\JenisPekerjaan::find($pekerjaan->jenis_pekerjaan_id)
 @endphp
 <section>
@@ -19,8 +20,8 @@
         @method('PATCH')
 
         <h3>Nama Pekerjaan : {{ $jenis_pekerjaan->nama_pekerjaan }}</h3>
-        <h3>Nama Perusahaan : {{ $pekerjaan->nama_perusahaan }}</h3>
-        <h3>Alamat Perusahaan : {{ $pekerjaan->alamat_perusahaan }}</h3>
+        <h3>Nama Perusahaan : {{ $vendor->nama_perusahaan }}</h3>
+        <h3>Alamat Perusahaan : {{ $vendor->alamat_perusahaan }}</h3>
         <h3>Mulai Bekerja : {{ $pekerjaan->mulai_bekerja }}</h3>
 
         <input type="hidden" value="{{ $index }}" id="index" name="index">

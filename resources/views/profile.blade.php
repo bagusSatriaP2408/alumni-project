@@ -48,7 +48,7 @@ $nowJobless = True
                             Tahun Masuk
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{$user->tahun_masuk}}
+                            {{$user->tahun_masuk}}
                         </dd>
                     </div>
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -56,7 +56,7 @@ $nowJobless = True
                             Tahun Lulus
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{$user->tahun_lulus}}
+                            {{$user->tahun_lulus}}
                         </dd>
                     </div>
                 </dl>
@@ -87,16 +87,16 @@ $nowJobless = True
                 @if ($item->done==1) 
                     <tr class="bg-white border-b">
                         <td class="py-4 px-6">{{ App\Models\JenisPekerjaan::find($item->jenis_pekerjaan_id)->nama_pekerjaan }}</td>
-                        <td class="py-4 px-6">{{ $item->nama_perusahaan }}</td>
-                        <td class="py-4 px-6">{{ $item->alamat_perusahaan }}</td>
+                        <td class="py-4 px-6">{{ $vendors->where('id', $item->vendor_id)->first()->nama_perusahaan }}</td>
+                        <td class="py-4 px-6">{{ $vendors->where('id', $item->vendor_id)->first()->alamat_perusahaan }}</td>
                         <td class="py-4 px-6">{{ $item->mulai_bekerja }}</td>
                         <td class="py-4 px-6">{{ $item->selesai_bekerja }}</td>
                     </tr>
                 @else
                     <tr class="bg-white border-b">
                         <td class="py-4 px-6">{{ App\Models\JenisPekerjaan::find($item->jenis_pekerjaan_id)->nama_pekerjaan }}</td>
-                        <td class="py-4 px-6">{{ $item->nama_perusahaan }}</td>
-                        <td class="py-4 px-6">{{ $item->alamat_perusahaan }}</td>
+                        <td class="py-4 px-6">{{ $vendors->where('id', $item->vendor_id)->first()->nama_perusahaan }}</td>
+                        <td class="py-4 px-6">{{ $vendors->where('id', $item->vendor_id)->first()->alamat_perusahaan }}</td>
                         <td class="py-4 px-6">{{ $item->mulai_bekerja }}</td>
                         <td class="py-4 px-6">Sedang Bekerja</td>
                     </tr>
