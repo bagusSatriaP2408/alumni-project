@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HasilKuisionerVendor;
 use App\Models\MainKuisioner;
 use Illuminate\Http\Request;
 use App\Models\HasilKuisioner;
@@ -27,22 +28,30 @@ class TrackingController extends Controller
     }
     public function kuisioner($id)
     {
-        $tracking = Main_hasil_kuisioner::with(['kuisioner', 'hasil_kuisioner'])
-            ->whereHas('kuisioner', function($query) use ($id) {
-                $query->where('id_main_kuisioner', $id);
-            })
-            ->get();
+        $type = MainKuisioner::where('id_main_kuisioner',$id)->get()[0]->type;
+
+        if ($type === 'alumni') {
+            $tracking = Main_hasil_kuisioner::with(['kuisioner', 'hasil_kuisioner'])
+                ->whereHas('kuisioner', fn($query) => $query->where('id_main_kuisioner', $id))
+                ->get();
+            $respondan = HasilKuisioner::with('kuisioner')
+                ->whereHas('kuisioner', fn($query) => $query->where('id_main_kuisioner', $id))
+                ->get();
+        } elseif ($type === 'vendor') {
+            $tracking = Main_hasil_kuisioner::with(['kuisioner', 'hasil_kuisioner_vendor'])
+                ->whereHas('kuisioner', fn($query) => $query->where('id_main_kuisioner', $id))
+                ->get();
+            $respondan = HasilKuisionerVendor::with('kuisioner')
+                ->whereHas('kuisioner', fn($query) => $query->where('id_main_kuisioner', $id))
+                ->get();
+        }
 
         $kuisioner=Kuisioner::where('id_main_kuisioner', $id)->get();
         $count=$kuisioner->count();
+        
+        $count_respondan=$respondan->count()/$count;
 
-        $respondan = HasilKuisioner::with('kuisioner')
-        ->whereHas('kuisioner', function($query) use ($id) {
-            $query->where('id_main_kuisioner', $id);
-        })->get();
-        $count_respondan=$respondan->count();
-        $count_respondan=$count_respondan/$count;
-        return view('admin.tracking.tracking_kuisioner', compact('tracking','kuisioner','count_respondan',));
+        return view('admin.tracking.tracking_kuisioner', compact('tracking','kuisioner','count_respondan','type'));
     
 }
 

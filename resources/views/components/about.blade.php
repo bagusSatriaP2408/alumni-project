@@ -35,6 +35,23 @@
                         </li>
                     </ul>
                 </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg mt-5">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Daftar Vendor</h2>
+                    <ul class="list-none">
+                        <li class="mb-2">
+                            <a href="#" class="text-gray-700 hover:text-gray-900">Vendor 1</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-gray-700 hover:text-gray-900">Vendor 2</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-gray-700 hover:text-gray-900">Vendor 3</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-gray-700 hover:text-gray-900">Lihat Selengkapnya</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 

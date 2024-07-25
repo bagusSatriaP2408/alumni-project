@@ -7,13 +7,8 @@
             <div class="text-sm uppercase text-indigo-600 font-bold">Halaman</div>
             <a class="my-3 block" href="/#">Home <span class="text-teal-600 text-xs p-1"></span></a>
             <a class="my-3 block" href="/#">Postingan <span class="text-teal-600 text-xs p-1"></span></a>
+            <a class="my-3 block" href="/#">Vendor <span class="text-teal-600 text-xs p-1"></span></a>
             <a class="my-3 block" href="/#">Search <span class="text-teal-600 text-xs p-1"></span></a>
-        </div>
-        <div class="p-5">
-            <div class="text-sm uppercase text-indigo-600 font-bold">Vendor</div>
-            <a class="my-3 block" href="/#">Help Center <span class="text-teal-600 text-xs p-1"></span></a><a
-                class="my-3 block" href="/#">Privacy Policy <span class="text-teal-600 text-xs p-1"></span></a><a
-                class="my-3 block" href="/#">Conditions <span class="text-teal-600 text-xs p-1"></span></a>
         </div>
         <div class="p-5">
             <div class="text-sm uppercase text-indigo-600 font-bold">Hubungi kami</div>
