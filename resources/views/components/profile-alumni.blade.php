@@ -15,5 +15,16 @@
 				</div>
 			@endforeach
 		</div>
+		<div class="flex items-center justify-center my-2">
+			<a href="" class="inline-flex items-center bg-white text-gray-700 font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out hover:bg-gray-200 focus:outline-none gap-2 shadow-md my-2">
+				<span>
+					Lihat Selengkapnya
+				</span>
+				<svg class="w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+					viewBox="0 0 24 24" class="w-6 h-6 ml-2">
+					<path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+				</svg>
+			</a>
+		</div>
 	</div>
 </div>

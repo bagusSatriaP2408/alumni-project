@@ -1,32 +1,39 @@
 <footer>
-    <div class="bg-gray-100 mt-5">
-        <div class="max-w-screen-xl px-4 sm:px-6 text-gray-800 sm:grid md:grid-cols-4 sm:grid-cols-2 mx-auto">
-            <div class="p-5">
-                <x-application-logo class="block h-32 w-auto fill-current text-gray-800"/>
+    <div class="bg-white">
+        <div class="max-w-screen-xl px-4 sm:px-6 text-gray-800 sm:grid md:grid-cols-4 sm:grid-cols-2 mx-auto p-12">
+            <div>
+                <x-application-logo class="block h-36 w-auto fill-current text-gray-800"/>
             </div>
-            <div class="p-5">
-                <div class="text-sm uppercase text-indigo-600 font-bold">Halaman</div>
-                <a class="my-3 block" href="/#">Home</a>
-                <a class="my-3 block" href="/#">Postingan</a>
-                <a class="my-3 block" href="/#">Vendor</a>
-                <a class="my-3 block" href="/#">Search</a>
+            <div>
+                <h3 class="text-sm uppercase text-blue-600 font-bold mb-3">Halaman</h3>
+                <div class="flex flex-col gap-2.5">
+                    <a href={{ route('home') }}>Beranda</a>
+                    <a href={{ route('posts.index') }}>Postingan</a>
+                    <a href={{ route('vendor.index') }}>Vendor</a>
+                    <a href={{ route('search.index') }}>Search</a>
+                </div>
             </div>
-            <div class="p-5">
-                <div class="text-sm uppercase text-indigo-600 font-bold">Daftar Vendor</div>
-                <a class="my-3 block" href="/#">Help Center</a>
-                <a class="my-3 block" href="/#">Privacy Policy</a>
-                <a class="my-3 block" href="/#">Conditions</a>
+            <div>
+                <h3 class="text-sm uppercase text-blue-600 font-bold mb-3">Daftar Vendor</h3>
+                <div class="flex flex-col gap-2.5">
+                    @foreach ($vendors as $vendor)
+                        <a href="/#">{{ $vendor->nama_perusahaan }}</a>
+                    @endforeach
+                    <a href="">Lihat Selengkapnya</a>
+                </div>
             </div>
-            <div class="p-5">
-                <div class="text-sm uppercase text-indigo-600 font-bold">Hubungi kami</div>
-                <a class="my-3 block" href="/#">Jl. Raya Telang,PO BOX 02 Kecamatan Kamal, Bangkalan Jawa Timur 69162 Indonesia</a>
-                <a class="my-3 block" href="/#">humas@trunojoyo.ac.id</a>
+            <div>
+                <h3 class="text-sm uppercase text-blue-600 font-bold mb-3">Hubungi kami</h3>
+                <div class="flex flex-col gap-2.5">
+                    <a href="https://maps.app.goo.gl/zL5mHyAPZGqMcELb8">Jl. Raya Telang, Perumahan Telang Indah, Telang, Kec. Kamal, Kabupaten Bangkalan, Jawa Timur 69162</a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=humas@trunojoyo.ac.id">humas@trunojoyo.ac.id</a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="bg-gray-100">
-        <div class="flex pb-5 px-3 m-auto pt-5 border-t text-gray-800 text-sm flex-col max-w-screen-lg items-center">
-            <div class="my-5">Copyright © 2024 Universitas Trunojoyo Madura. All Rights Reserved.</div>
+    <div class="bg-white border-t">
+        <div class="flex m-auto text-gray-800 text-sm items-center justify-center py-5">
+            <p>Copyright © 2024 Universitas Trunojoyo Madura. All Rights Reserved.</p>
         </div>
     </div>
 </footer>

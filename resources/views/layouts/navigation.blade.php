@@ -13,23 +13,23 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Home') }}
+                        {{ __('BERANDA') }}
                     </x-nav-link>
                     <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
-                        {{ __('Postingan') }}
+                        {{ __('POSTINGAN') }}
                     </x-nav-link>
                     @if(Auth::user())
                     <x-nav-link :href="route('kuisioner.index')" :active="request()->routeIs('kuisioner.index')">
-                        {{ __('Kuisioner') }}
+                        {{ __('KUISIONER') }}
                     </x-nav-link>
                     @else
                     <x-nav-link :href="route('vendor.index')" :active="request()->routeIs('vendor.index')">
-                        {{ __('Vendor') }}
+                        {{ __('VENDOR') }}
                     </x-nav-link>
                     @endif
 
                     <x-nav-link :href="route('search.index')" :active="request()->routeIs('search.index')">
-                        {{ __('Search') }}
+                        {{ __('SEARCH') }}
                     </x-nav-link>
 
                     
@@ -79,10 +79,10 @@
             @else
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('login')">
-                        {{ __('Login') }}
+                        {{ __('LOGIN') }}
                     </x-nav-link>
                     <x-nav-link :href="route('register')">
-                        {{ __('Register') }}
+                        {{ __('REGISTER') }}
                     </x-nav-link>
                 </div>
             @endauth
