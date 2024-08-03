@@ -10,7 +10,7 @@
                     <a href={{ route('home') }}>Beranda</a>
                     <a href={{ route('posts.index') }}>Postingan</a>
                     <a href={{ route('vendor.index') }}>Vendor</a>
-                    <a href={{ route('search.index') }}>Search</a>
+                    <a href={{ route('search.index') }}>Alumni</a>
                 </div>
             </div>
             <div>

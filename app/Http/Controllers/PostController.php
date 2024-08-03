@@ -26,7 +26,7 @@ class PostController extends Controller
             }
         })->get();
 
-        $categories = PostCategory::all(); // Pastikan Anda mengambil semua kategori untuk dropdown
+        $categories = PostCategory::all(); 
 
         return view('posts.index', compact('posts', 'categories'));
     }

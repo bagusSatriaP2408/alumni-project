@@ -29,7 +29,7 @@
                     @endif
 
                     <x-nav-link :href="route('search.index')" :active="request()->routeIs('search.index')">
-                        {{ __('SEARCH') }}
+                        {{ __('ALUMNI') }}
                     </x-nav-link>
 
                     
