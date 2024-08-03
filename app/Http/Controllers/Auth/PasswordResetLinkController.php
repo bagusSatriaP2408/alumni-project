@@ -52,8 +52,12 @@ class PasswordResetLinkController extends Controller
             'email.required' => 'Kolom email harus diisi.',
             'email.email' => 'Format email tidak valid.',
         ]);
-
+        
         $email = $request->email;
+        $veremail=User::where('approved',1)->where('email',$email)->first();
+        if (!$veremail) {
+            return redirect()->back()->withErrors(['email' => 'Email tidak terdaftar']);
+        }
         $uniqueCode = rand(100000, 999999); 
 
         session(['unique_code' => $uniqueCode, 'email' => $email]);

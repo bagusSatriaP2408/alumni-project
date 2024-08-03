@@ -14,7 +14,7 @@ class SearchController extends Controller
     {
 
         $users = User::join('prodi', 'users.prodi', '=', 'prodi.id')
-                ->select('users.*', 'prodi.name as prodi')
+                ->select('users.*', 'prodi.name as prodi')->where('users.approved', 1)
                 ->get();
         // dd($users);
         $prodis = Prodi::all(); 
@@ -29,9 +29,8 @@ class SearchController extends Controller
         $tahun_masuk = $request->input('tahun_masuk');
         $prodi = $request->input('prodi');
         $pekerjaan = $request->input('pekerjaan');
-        
         $query = User::join('prodi', 'users.prodi', '=', 'prodi.id')
-            ->select('users.*', 'prodi.name as prodi');
+            ->select('users.*', 'prodi.name as prodi')->where('users.approved', 1);
     
         if (!empty($search)) {
             $query->where('users.name', 'like', '%' . $search . '%');
@@ -48,7 +47,7 @@ class SearchController extends Controller
         if (!empty($pekerjaan)) {
             $query = User::join('prodi', 'users.prodi', '=', 'prodi.id')
             ->join('pekerjaan', 'users.id', '=', 'pekerjaan.user_id')
-            ->select('users.*', 'prodi.name as prodi')
+            ->select('users.*', 'prodi.name as prodi')->where('users.approved', 1)
             ->distinct()
             ->latest();
             $query->where('pekerjaan.jenis_pekerjaan_id', 'like', '%' . $pekerjaan . '%');
@@ -56,7 +55,7 @@ class SearchController extends Controller
 
         if (empty($search) && empty($tahun_masuk) && empty($prodi) && empty($pekerjaan)) {
             $query = User::join('prodi', 'users.prodi', '=', 'prodi.id')
-                ->select('users.*', 'prodi.name as prodi');
+                ->select('users.*', 'prodi.name as prodi')->where('users.approved', 1);
         }
     
         $users = $query->get();
