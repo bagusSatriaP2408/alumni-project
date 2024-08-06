@@ -14,7 +14,7 @@ Route::get('/', Controllers\HomeController::class)->name('home');
 Route::get('/dashboard', Controllers\DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('posts', [Controllers\PostController::class, 'index'])->name('posts.index');
-
+Route::get('posts/category/{categoryId}', [PostController::class, 'filterByCategory'])->name('posts.filterByCategory');
 
 Route::get('search', [Controllers\SearchController::class, 'index'])->name('search.index');
 Route::get('search/profile/{id}', [Controllers\ProfileController::class, 'show'])->name('profile.show');

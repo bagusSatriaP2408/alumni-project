@@ -17,18 +17,22 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $posts = Post::where(function ($query) use ($request) {
-            // Filter berdasarkan kategori jika parameter 'category' ada
-            if ($request->has('category') && $request->category != '') {
-                $query->where('kategori_id', $request->category);
-            }
-        })->get();
-
+        $posts = Post::all();
         $categories = PostCategory::all(); 
+        $newest_posts = Post::latest()->limit(3)->get();
 
-        return view('posts.index', compact('posts', 'categories'));
+        return view('posts.index', compact('posts', 'categories', 'newest_posts'));
+    }
+
+    public function filterByCategory($categoryId)
+    {
+        $posts = Post::where('kategori_id', $categoryId)->get();
+        $categories = PostCategory::all();
+        $newest_posts = Post::latest()->limit(3)->get();
+
+        return view('posts.index', compact('posts', 'categories', 'newest_posts'));
     }
 
     public function index_kategori()
