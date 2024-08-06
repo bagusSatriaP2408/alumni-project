@@ -1,15 +1,15 @@
 <section class="about flex flex-col bg-white p-8">
     <div class="container mx-auto px-4 flex flex-col md:flex-row">
         <div class="w-full md:w-3/4 pr-16">
-            <div class="prose max-w-none text-justify">
+            <div class="prose max-w-none text-justify border border-blue-500 border-4 p-8 rounded-2xl">
                 <h1 class="text-3xl font-bold">Selamat Datang di Portal Alumni Kami</h1>
                 <p>Kami bangga memperkenalkan Anda ke komunitas alumni kami yang luar biasa. Portal ini adalah tempat di mana kenangan, pencapaian, dan koneksi bertemu.</p>
-
+                <hr class="mt-4 border border-blue-700">
                 <h2 class="text-2xl font-bold mt-6">Mengapa Bergabung dengan Komunitas Alumni Kami?</h2>
                 <p><strong>1. Jaringan Global:</strong> Memberikan Anda kesempatan untuk membangun koneksi profesional dan pribadi yang berharga.</p>
                 <p><strong>2. Karir yang Sukses:</strong> 100+ alumni kami telah mencapai kesuksesan dalam berbagai bidang industri. Dapatkan inspirasi dan peluang dari cerita sukses mereka.</p>
                 <p><strong>3. Dukungan Berkelanjutan:</strong> Kami berkomitmen untuk mendukung perkembangan karir Anda. Manfaatkan berbagai program pelatihan, seminar, dan acara jaringan yang kami tawarkan.</p>
-                
+                <hr class="mt-4 border border-blue-700">
                 <h2 class="text-2xl font-bold mt-6">Tetap Terhubung</h2>
                 <p>Ikuti berita terbaru, acara, dan kesempatan jaringan melalui buletin kami. Jadilah bagian dari komunitas yang dinamis dan mendukung.</p>
                 <p><strong>Bergabunglah dengan kami dan jadilah bagian dari cerita sukses ini!</strong></p>

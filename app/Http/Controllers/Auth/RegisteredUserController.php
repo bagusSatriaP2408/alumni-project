@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'nim' => ['required', 'string', 'digits:12','unique:'.User::class],
+            'nim' => ['required', 'int', 'digits:12','unique:'.User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'tahun_masuk' => ['required', 'digits:4'],
