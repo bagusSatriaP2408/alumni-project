@@ -1,7 +1,7 @@
 <x-app-layout>
     @slot('title', 'Home')
 
-    <div class="relative bg-gradient-to-r from-purple-600 to-blue-600 h-screen text-white overflow-hidden mt-2" style="max-height: calc(100vh - 65px)">
+    <div class="relative bg-gradient-to-r from-purple-600 to-blue-600 h-screen text-white overflow-hidden" style="max-height: calc(100vh - 65px)">
         <div class="absolute inset-0">
           <img src="{{ asset('images/hero.png') }}" alt="Background Image" class="object-cover object-bottom w-full h-full" />
           <div class="absolute inset-0 bg-black opacity-50"></div>

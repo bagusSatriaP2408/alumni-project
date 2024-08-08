@@ -1,8 +1,5 @@
 <x-app-layout>
 
-    {{-- <x-slot name="title">
-        Dashboard
-    </x-slot> --}}
     @slot('title', $page_meta['title'])
         
     <x-slot name="header">
@@ -18,9 +15,6 @@
                     <x-card.title>
                         {{ $page_meta['title'] }}
                     </x-card.title>
-                    <x-card.description>
-                        {{ $page_meta['description'] }}
-                    </x-card.description>
                 </x-card.header>
                 <x-card.content>
                     <form action="{{ $page_meta['url'] }}" method="POST" enctype="multipart/form-data" class="space-y-6">
@@ -35,7 +29,7 @@
 
                         <div>
                             <x-input-label for="gambar" class="sr-only" :value="__('gambar')" />
-                            <input id="gambar" type="file" name="gambar"/>
+                            <input id="gambar" type="file" name="gambar" class="mt-2 block w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-blue-700 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-white hover:file:bg-blue-800 focus:outline-none disabled:pointer-events-none disabled:opacity-60"/>
                             <x-input-error :messages="$errors->get('gambar')"/>
                         </div>
 

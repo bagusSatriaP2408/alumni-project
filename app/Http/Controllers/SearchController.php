@@ -15,7 +15,7 @@ class SearchController extends Controller
 
         $users = User::join('prodi', 'users.prodi', '=', 'prodi.id')
                 ->select('users.*', 'prodi.name as prodi')->where('users.approved', 1)
-                ->get();
+                ->paginate(3);
         // dd($users);
         $prodis = Prodi::all(); 
         $jenisPekerjaan = JenisPekerjaan::all(); 

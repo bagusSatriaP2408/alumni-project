@@ -53,5 +53,9 @@
             </div>
         @endforeach
     </div>
+    {{-- PAGINATION LINKS --}}
+    <div class="mt-6 mx-auto w-10/12 px-4">
+        {{ $users->links('custom.pagination') }}
+    </div>
     
 </x-app-layout>

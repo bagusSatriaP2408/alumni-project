@@ -57,7 +57,7 @@
                     </table>
                 </div>
                 <div class="mt-4">
-                    {!! $User->withQueryString()->links('pagination::tailwind') !!}
+                    {!! $User->withQueryString()->links('custom.pagination') !!}
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@ class Tracking_angkatan extends Controller
     
         // Get jobs related to the year entered
         $pekerjaan = Pekerjaan::whereHas('pekerjaan', function ($query) use ($request) {
-            $query->where('tahun_masuk', $request->tahun_masuk);
+            $query->where('tahun_masuk', $request->tahun_masuk)->where('done',0);
         })->get();
     
         // Get users related to the year entered
@@ -76,7 +76,7 @@ class Tracking_angkatan extends Controller
     
         // Get jobs related to the year entered
         $pekerjaan = Pekerjaan::whereHas('pekerjaan', function ($query) use ($request) {
-            $query->whereBetween('tahun_masuk', [$request->tahun_masuk_awal, $request->tahun_masuk_akhir]);
+            $query->whereBetween('tahun_masuk', [$request->tahun_masuk_awal, $request->tahun_masuk_akhir])->where('done',0);
         })->get();
     
         // Get users related to the year entered

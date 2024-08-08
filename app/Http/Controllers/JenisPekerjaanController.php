@@ -13,7 +13,7 @@ class JenisPekerjaanController extends Controller
      */
     public function index()
     {
-        $pekerjaans = JenisPekerjaan::all();
+        $pekerjaans = JenisPekerjaan::paginate(5);
         return view('admin.jenis-pekerjaan.index', compact('pekerjaans'));
     }
 

@@ -14,12 +14,9 @@ use Illuminate\Auth\Middleware\Authorize;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(3); 
         $categories = PostCategory::all(); 
         $newest_posts = Post::latest()->limit(3)->get();
 
@@ -37,7 +34,7 @@ class PostController extends Controller
 
     public function index_kategori()
     {
-        $categories = PostCategory::all();
+        $categories = PostCategory::paginate(5);
         return view('admin.kategori-post.index', compact('categories'));
     }
 
@@ -47,15 +44,12 @@ class PostController extends Controller
             if ($request->has('category') && $request->category != '') {
                 $query->where('kategori_id', $request->category);
             }
-        })->with('user')->latest()->get();
+        })->with('user')->latest()->paginate();
         $categories = PostCategory::all(); // Pastikan ini ada untuk mengisi dropdown
         return view('admin.postingan', compact('posts', 'categories'));
     }
 
         
-        /**
-         * Show the form for creating a new resource.
-         */
     public function create()
     {
         $categories = PostCategory::all();
@@ -63,8 +57,7 @@ class PostController extends Controller
             'categories' => $categories,
             'posts' => new Post(),
             'page_meta' => [
-                'title' => 'Buat Postingan',
-                'description' => 'Buat postingan baru',
+                'title' => 'Buat Postingan Baru',
                 'method' => 'POST',
                 'url' => route('posts.store'),
             ]
@@ -110,7 +103,8 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
-        return view('posts.show', compact('post'));
+        $categories = PostCategory::all(); 
+        return view('posts.show', compact('post', 'categories'));
     }
 
     public function post_admin_detail($slug)
@@ -123,7 +117,8 @@ class PostController extends Controller
     {
         $user = $request->user();
         $posts = $user->posts()->latest()->get();
-        return view('posts.detail', compact('posts'));
+        $categories = PostCategory::all(); 
+        return view('posts.detail', compact('posts', 'categories'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -140,7 +135,6 @@ class PostController extends Controller
             'categories' => $categories,
             'page_meta' => [
                 'title' => 'Edit post',
-                'description' => 'Edit post:' . $post->judul,
                 'method' => 'PUT',
                 'url' => route('posts.update', $post)
             ]

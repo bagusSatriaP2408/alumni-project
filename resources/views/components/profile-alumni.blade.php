@@ -1,15 +1,21 @@
 <div class="bg-gray-100 py-8">
-	<div class="container mx-auto px-8">
+	<div class="container mx-auto px-4">
 		<h2 class="text-4xl font-bold text-center mb-8">Profil Alumni</h2>
-		<div class="flex flex-wrap justify-center -mx-4">
-			@foreach($alumni as $alumnus)
+		<div class="flex flex-wrap justify-center">
+			@foreach($alumni as $user)
 				<div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
 					<div class="bg-white rounded-lg shadow-lg p-6 text-center">
-						<img class="w-32 h-32 object-cover rounded-full mx-auto" src="{{ ($alumnus->gambar) == null ? asset('storage/images/posts/profile-none.jpeg') : asset('storage/' . $alumnus->gambar) }}" alt="{{ $alumnus->name }}">
-						<div class="p-4">
-							<h3 class="text-2xl font-semibold mb-2">{{ $alumnus->name }}</h3>
-							<p class="text-gray-600 mb-2">Tahun Masuk: {{ $alumnus->tahun_masuk }}</p>
-							<p class="text-gray-700">Tahun Lulus: {{ $alumnus->tahun_lulus }}</p>
+						<img class="w-32 h-32 object-cover rounded-full mx-auto" src="{{ ($user->gambar) == null ? asset('storage/images/posts/profile-none.jpeg') : asset('storage/' . $user->gambar) }}" alt="{{ $user->name }}">
+						<div class="px-6 py-2">
+							<div class="text-xl font-semibold text-gray-800">{{ $user->name }}</div>
+							<p class="text-gray-600">{{ $user->prodi }}</p>
+						</div>
+						<div class="px-6 py-2">
+							<span class="inline-block px-2 py-1 font-semibold text-blue-900 bg-blue-200 rounded-lg">{{ $user->tahun_masuk }}</span>
+							<span class="inline-block px-2 py-1 font-semibold text-red-900 bg-red-200 rounded-lg">{{ $user->tahun_lulus }}</span>
+						</div>
+						<div class="px-6 py-4">
+							<a href="{{route('profile.show',$user->id)}}" class="text-blue-500 hover:underline bg-blue-700 text-white px-4 py-2 rounded-lg">Lihat Selengkapnya</a>
 						</div>
 					</div>
 				</div>

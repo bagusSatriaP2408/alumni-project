@@ -57,6 +57,9 @@
                     </div>
                 @endforelse
             </div>
+            <div class="mt-4 px-4">
+                {{ $posts->links('custom.pagination') }}
+            </div>
         </div>
     </div>
 

@@ -42,6 +42,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="my-4">
+                    {{ $categories->links('custom.pagination') }}
+                </div>
             </div>
         </div>
     </div>

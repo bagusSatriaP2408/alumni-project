@@ -30,7 +30,7 @@ class AdminController extends Controller
     public function show(Request $request): View
     {
         // Ambil semua data user dengan order berdasarkan 'approved' dan menggunakan pagination
-        $User = User::orderBy('approved', 'asc')->paginate(20); // Mengatur 10 data per halaman
+        $User = User::orderBy('approved', 'asc')->paginate(5); // Mengatur 10 data per halaman
     
         // Mengatur kembali nomor halaman (pagination) dengan menggunakan 'page' dari input request
         $User->appends($request->except('page'));
