@@ -8,29 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Pekerjaan extends Model
 {
     use HasFactory;
-    protected $primaryKey='id';
 
+    protected $primaryKey = 'id';
     protected $table = 'pekerjaan';
-
     public $timestamps = false;
-    protected $guarded = [
-    ];
-    // protected $fillable = [
-    //     'id',
-    //     'user_id',
-    //     'nama_pekerjaan',
-    //     'alamat_perusahaan',
-    //     'mulai_bekerja',
-    //     'selesai_bekerja',
-    // ];
+    protected $guarded = [];
+
     public function pekerjaan()
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 
-    // public function jenisPekerjaan()
-    // {
-    //     return $this->belongsTo(\App\Models\Pekerjaan::class, 'jenis_pekerjaan_id', 'id_jenis_pekerjaan');
-    // }
-
+    public function jenis_pekerjaan()
+    {
+        return $this->belongsTo(\App\Models\JenisPekerjaan::class, 'jenis_pekerjaan_id', 'id_jenis_pekerjaan');
+    }
 }
+
+
+

@@ -17,7 +17,7 @@
         <form action="{{route('admin.tracking.angkatan.track')}}" method="post" class="flex-1 bg-gray-100 p-4 rounded-md shadow">
             @csrf
             <div class="mb-4">
-                <label for="tahun-angkatan1" class="block text-sm font-medium text-gray-700">Kesesuaian bidang kerja</label>
+                <label for="tahun-angkatan1" class="block text-sm font-medium text-gray-700">Kesesuaian bidang kerja satu angkatan</label>
                 <select id="tahun-angkatan1" name="tahun_masuk" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="">Pilih tahun angkatan</option>
                     @foreach ($angkatan as $a)
@@ -34,7 +34,7 @@
         <form action="{{route('admin.tracking.angkatan.track_multi')}}" method="post" class="flex-1 bg-gray-100 p-4 rounded-md shadow">
             @csrf
             <div class="mb-4">
-                <label for="tahun-angkatan2" class="block text-sm font-medium text-gray-700">Kesesuaian bidang kerja</label>
+                <label for="tahun-angkatan2" class="block text-sm font-medium text-gray-700">Kesesuaian bidang kerja angkatan dalam rentang waktu</label>
                 <select id="tahun-angkatan2" name="tahun_masuk_awal" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="">Pilih tahun angkatan awal</option>
                     @foreach ($angkatan as $a)
